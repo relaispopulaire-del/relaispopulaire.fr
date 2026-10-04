@@ -146,6 +146,25 @@ def compact(n):
 AUD = site["audience"]
 FOLLOWERS_TOTAL = sum(p["followers"] for p in AUD if p.get("followers"))
 VIEWS_TOTAL = sum(p["views"] for p in AUD if p.get("views"))
+
+# Réseaux : liens « suivre » (seulement ceux dont l'adresse est connue)
+SOCIAL_URL = {s["name"]: s["url"] for s in site["socials"] if s.get("url")}
+FOLLOW = []
+for s in site["socials"]:
+    if not s.get("url"):
+        continue
+    aud = next((p for p in AUD if p["name"] == s["name"]), {})
+    FOLLOW.append({
+        **s,
+        "link": s.get("follow_url") or s["url"],
+        "followers_label": compact(aud["followers"]) if aud.get("followers") else None,
+    })
+
+
+def join_fr(names):
+    return names[0] if len(names) < 2 else ", ".join(names[:-1]) + " et " + names[-1]
+
+
 STATS = {
     "followers_total": FOLLOWERS_TOTAL,
     "followers_floor": FOLLOWERS_TOTAL // 1000 * 1000,
@@ -153,11 +172,18 @@ STATS = {
     "views_m": round(VIEWS_TOTAL / 1_000_000, 1),
     "followers_label": f"{FOLLOWERS_TOTAL // 1000 * 1000:,}".replace(",", " "),
     "views_label": f"{VIEWS_TOTAL / 1_000_000:.1f}".replace(".", ","),
-    "followers": [(p["name"], compact(p["followers"]))
+    "followers": [{"name": p["name"], "value": compact(p["followers"]), "url": SOCIAL_URL.get(p["name"])}
                   for p in sorted(AUD, key=lambda p: -p.get("followers", 0)) if p.get("followers")],
-    "views": [(p["name"], compact(p["views"]))
+    "views": [{"name": p["name"], "value": compact(p["views"]), "url": SOCIAL_URL.get(p["name"])}
               for p in sorted(AUD, key=lambda p: -p.get("views", 0)) if p.get("views")],
+    "networks_label": join_fr([s["name"] for s in site["socials"]]),
+    "follow_label": join_fr([s["name"] for s in FOLLOW]),
 }
+
+
+def fb_share(url):
+    from urllib.parse import quote
+    return "https://www.facebook.com/sharer/sharer.php?u=" + quote(url, safe="")
 
 
 # ---------------------------------------------------------------- inline head script (+ hash CSP)
@@ -257,7 +283,7 @@ def jsonld(page):
             "email": site["email"],
             "areaServed": ["Martinique", "Caraïbe", "France"],
             "knowsLanguage": ["fr", "gcf"],
-            "sameAs": [site["youtube"]] + [s["url"] for s in site.get("socials", [])],
+            "sameAs": [s["url"] for s in site["socials"] if s.get("url")],
             "publishingPrinciples": f"{url}/le-media.html#charte",
             "correctionsPolicy": f"{url}/le-media.html#charte",
         },
@@ -341,6 +367,8 @@ def build():
         reel_shorts=REEL_SHORTS,
         long_latest=LONG,
         stats=STATS,
+        follow=FOLLOW,
+        fb_share=fb_share,
         collab_refs=pick(vdata["collab_refs"]),
         V=VIDEOS,
         v_css=v_css,
