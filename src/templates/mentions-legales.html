@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">Informations légales</p>
+    <h1 class="display">Mentions légales</h1>
+    <p class="lead">Conformément à la loi pour la confiance dans l’économie numérique (LCEN) et à la loi du 29 juillet 1881 sur la liberté de la presse.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container legal-grid">
+    <ul class="toc" aria-label="Sommaire">
+      <li><a href="#editeur">Éditeur</a></li>
+      <li><a href="#publication">Directeur de la publication</a></li>
+      <li><a href="#hebergement">Hébergement</a></li>
+      <li><a href="#propriete">Propriété intellectuelle</a></li>
+      <li><a href="#reponse">Droit de réponse</a></li>
+      <li><a href="#liens">Contenus tiers</a></li>
+      <li><a href="#credits">Crédits</a></li>
+    </ul>
+    <div class="prose">
+      <h2 id="editeur">Éditeur du site</h2>
+      {% if site.legal.declared %}
+      <p>Le site <strong>relaispopulaire.fr</strong> est édité par <strong>{{ site.legal.publisher }}</strong>, {{ site.legal.form|lower }}.</p>
+      <ul>
+        <li>Siège&#8239;: {{ site.legal.address }}</li>
+        <li>Numéro RNA&#8239;: {{ site.legal.rna }}</li>
+        <li>Contact&#8239;: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+      </ul>
+      {% else %}
+      <p>Le site <strong>relaispopulaire.fr</strong> est édité par l’équipe de <strong>{{ site.legal.publisher }}</strong>, média communautaire martiniquais en cours de constitution en association régie par la loi du 1er juillet 1901.</p>
+      <ul>
+        <li>Contact&#8239;: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+      </ul>
+      <p>Les informations complètes sur l’association éditrice (siège, numéro RNA, directeur ou directrice de la publication) seront publiées sur cette page dès sa déclaration.</p>
+      {% endif %}
+
+      <h2 id="publication">Directeur de la publication</h2>
+      {% if site.legal.declared %}
+      <p>{{ site.legal.director }}, en qualité de directeur ou directrice de la publication, joignable à <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+      {% else %}
+      <p>La direction de la publication est joignable à <a href="mailto:{{ site.email }}">{{ site.email }}</a>, notamment pour toute demande de droit de réponse.</p>
+      {% endif %}
+
+      <h2 id="hebergement">Hébergement</h2>
+      <p><strong>{{ site.legal.host_name }}</strong><br>{{ site.legal.host_address }}<br>Téléphone&#8239;: {{ site.legal.host_phone }}</p>
+      <p>Le nom de domaine relaispopulaire.fr est enregistré auprès d’{{ site.legal.registrar }}.</p>
+      <p>Les vidéos sont hébergées et diffusées par YouTube (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande).</p>
+
+      <h2 id="propriete">Propriété intellectuelle</h2>
+      <p>L’ensemble des contenus de ce site (textes, vidéos, photographies, logo, éléments graphiques) est la propriété de Relais Populaire Média ou de ses partenaires, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+      <p>Le partage des liens vers nos pages et nos vidéos est, lui, vivement encouragé.</p>
+
+      <h2 id="reponse">Droit de réponse</h2>
+      <p>Toute personne nommée ou désignée dans un contenu publié par Relais Populaire dispose d’un droit de réponse. La demande est à adresser au directeur de la publication, par écrit, à <a href="mailto:{{ site.email }}">{{ site.email }}</a>, dans un délai de trois mois à compter de la mise à disposition du contenu. Elle doit préciser les références du contenu, les passages contestés et la teneur de la réponse souhaitée.</p>
+
+      <h2 id="liens">Contenus tiers</h2>
+      <p>Les lecteurs vidéo sont fournis par YouTube et ne se chargent qu’à la demande de l’internaute. Relais Populaire ne saurait être tenu responsable du contenu des sites externes vers lesquels renvoient certains liens.</p>
+
+      <h2 id="credits">Crédits</h2>
+      <p>Conception, réalisation et contenus&#8239;: Relais Populaire Média. Typographie&#8239;: Inter, sous licence SIL Open Font License 1.1.</p>
+      <p class="muted">Dernière mise à jour&#8239;: 4 octobre 2026.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

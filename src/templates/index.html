@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon, vcard, scard, mini %}
+{% block content %}
+
+{# ================= HÉROS : sphère 3D + derniers Shorts en orbite ================= #}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__scene" aria-hidden="true" data-intro>
+    <div class="orbit">
+      <div class="orbit__parallax">
+        <div class="orbit__tilt">
+          <span class="orbit__path"></span>
+          <span class="orbit__path orbit__path--outer"></span>
+          <div class="orbit__sphere"><span class="sphere"></span></div>
+          <div class="orbit__ring">
+            {% for s in ring %}
+            <div class="orbit__card">
+              <a class="orbit__face" href="{{ s.url }}" data-yt="{{ s.id }}" data-short="1" data-title="{{ s.title }}" tabindex="-1" data-thumb><img src="{{ s.thumb_sd }}" srcset="{{ s.srcset_small }}" sizes="(max-width: 920px) 22vw, 150px" alt="" width="270" height="480" decoding="async" data-yt-thumb data-fallback="{{ s.thumb_hq }}"><span class="orbit__title">{{ s.title }}</span></a>
+              <a class="orbit__face orbit__face--back" href="{{ s.url }}" data-yt="{{ s.id }}" data-short="1" data-title="{{ s.title }}" tabindex="-1"><img src="{{ s.thumb_hq }}" alt="" width="270" height="480" decoding="async" loading="lazy"></a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <p class="kicker" data-intro>Média communautaire · Martinique</p>
+    <h1 id="hero-title" data-intro>Les histoires de chez nous, racontées <span class="accent">par nous.</span></h1>
+    <p class="lead" data-intro>L’actu de la Martinique filmée sur le terrain, chaque jour, et des enquêtes pour aller plus loin. Relais Populaire donne la parole à celles et ceux qu’on n’entend pas.</p>
+    <div class="actions" data-intro>
+      <a class="btn btn--primary" href="#actu">{{ icon('play') }}Voir l’actu</a>
+      <a class="btn btn--ghost" href="videos.html">Toutes les vidéos</a>
+    </div>
+    <ul class="hero__stats" data-intro>
+      <li><strong>{{ stats.followers_label }}+</strong>abonnés</li>
+      <li><strong>{{ stats.views_label }}&#8239;M</strong>de vues</li>
+      <li><strong lang="gcf">Sé ta nou</strong></li>
+    </ul>
+  </div>
+  <a class="scroll-cue" href="#actu">Défiler</a>
+</section>
+
+{# ================= L'ACTU EN SHORTS ================= #}
+<section class="section" id="actu" aria-labelledby="actu-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker kicker--live">L’actu en Shorts</p>
+        <h2 class="section-title" id="actu-title">Ce qui se passe, maintenant.</h2>
+      </div>
+      <a class="link-arrow" href="{{ site.youtube }}/shorts" target="_blank" rel="noopener">Tous les Shorts {{ icon('arrow-up') }}</a>
+    </div>
+    <ul class="shorts-grid" aria-label="Derniers Shorts publiés">
+      {% for s in shorts[:12] %}
+      <li data-reveal>{{ scard(s, dated=true) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ================= DÉFILEMENT : encore plus de Shorts ================= #}
+{% if reel_shorts %}
+<section class="section section--tight reel" aria-labelledby="reel-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">En images</p>
+        <h2 class="section-title" id="reel-title">Ça bouge, chez nous.</h2>
+      </div>
+      <p class="lead">Quartiers, marchés, montagne Pelée, jeunesse&#8239;: nos formats courts défilent en continu. Clique pour regarder.</p>
+    </div>
+  </div>
+
+  <div class="marquee marquee--shorts" data-reveal>
+    <ul class="marquee__track">
+      {% for s in reel_shorts %}<li>{{ scard(s, sizes='(max-width: 700px) 40vw, 205px') }}</li>{% endfor %}
+      {% for s in reel_shorts %}<li aria-hidden="true" data-dup>{{ scard(s, hidden=true, sizes='(max-width: 700px) 40vw, 205px') }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{# ================= MANIFESTE ================= #}
+<section class="section" aria-labelledby="demarche-title">
+  <div class="container">
+    <h2 class="kicker" id="demarche-title">Notre démarche</h2>
+    <p class="manifesto__text" data-words>On va là où les caméras ne vont pas. On écoute celles et ceux qu’on n’entend jamais. On vérifie, on recoupe, on raconte. Parce que ces histoires sont les nôtres&#8239;: <span class="accent" lang="gcf">sé ta nou.</span></p>
+
+    <ul class="pillars">
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">01</span>
+        <h3>Le terrain</h3>
+        <p>On se déplace dans les quartiers, les communes, les marchés. On filme les gens là où ils vivent, en prenant le temps qu’il faut.</p>
+      </li>
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">02</span>
+        <h3>L’enquête</h3>
+        <p>On documente, on vérifie, on croise les témoignages et les points de vue avant de publier.</p>
+      </li>
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">03</span>
+        <h3>La parole</h3>
+        <p>On tend le micro aux habitants, aux jeunes, aux anciens, aux spécialistes. En français comme en créole.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{# ================= THÈMES (bande de mots) ================= #}
+<section class="words-band" aria-label="Nos thèmes">
+  <div class="marquee">
+    <ul class="marquee__track">
+      {% set themes = [('Jeunesse', false), ('Quartiers', true), ('Mémoire', false), ('Montagne Pelée', true), ('Manjé péyi', false), ('Sport', true), ('Culture', false), ('Diaspora', true)] %}
+      {% for loop_i in [0, 1] %}
+      {% for label, outline in themes %}
+      <li{% if loop_i %} aria-hidden="true" data-dup{% endif %}><span class="word{% if outline %} word--outline{% endif %}"{% if label == 'Manjé péyi' %} lang="gcf"{% endif %}>{{ label }}</span></li>
+      <li aria-hidden="true"{% if loop_i %} data-dup{% endif %}><span class="dot"></span></li>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ================= CHIFFRES ================= #}
+<section class="section section--tight" aria-labelledby="chiffres-title">
+  <div class="container">
+    <h2 class="kicker" id="chiffres-title">En chiffres</h2>
+    <ul class="stats">
+      <li class="stat" data-reveal>
+        <span class="stat__num" data-count="{{ stats.followers_floor }}" data-suffix="+">{{ stats.followers_label }}+</span>
+        <span class="stat__label">abonnés cumulés sur nos réseaux, une communauté qui partage chaque vidéo.</span>
+        <ul class="stat__split" aria-label="Abonnés par réseau">
+          {% for name, value in stats.followers %}<li>{{ name }} <strong>{{ value }}</strong></li>{% endfor %}
+        </ul>
+      </li>
+      <li class="stat" data-reveal>
+        <span class="stat__num" data-count="{{ stats.views_m }}" data-decimals="1" data-suffix="&#8239;M">{{ stats.views_label }}&#8239;M</span>
+        <span class="stat__label">de vues sur Instagram, TikTok et YouTube.</span>
+        <ul class="stat__split" aria-label="Vues par réseau">
+          {% for name, value in stats.views %}<li>{{ name }} <strong>{{ value }}</strong></li>{% endfor %}
+        </ul>
+      </li>
+      <li class="stat" data-reveal>
+        <span class="stat__num" data-count="{{ site.stats.videos }}" data-suffix="+">1&#8239;600+</span>
+        <span class="stat__label">vidéos publiées&#8239;: actu en formats courts, reportages, interviews et enquêtes.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{# ================= LES 3 DERNIÈRES VIDÉOS LONGUES ================= #}
+{% set main = long_latest[0] %}
+<section class="section" id="enquetes" aria-labelledby="enquetes-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Pour aller plus loin</p>
+        <h2 class="section-title" id="enquetes-title">Nos dernières enquêtes</h2>
+      </div>
+      <a class="link-arrow" href="videos.html#longues">Toutes les vidéos {{ icon('arrow') }}</a>
+    </div>
+
+    <div class="feature">
+      <article class="feature__main" data-reveal>
+        <a class="vcard" href="{{ main.url }}" data-yt="{{ main.id }}" data-title="{{ main.title }}" data-thumb>
+          <img src="{{ main.thumb_large }}" srcset="{{ main.srcset }}" sizes="(max-width: 860px) 92vw, 760px" alt="" width="1280" height="720" loading="lazy" decoding="async" data-yt-thumb data-fallback="{{ main.thumb_hq }}">
+          <span class="vcard__play">{{ icon('play') }}</span>
+          <span class="visually-hidden">Regarder la vidéo</span>
+        </a>
+        <div class="feature__body">
+          <span class="badge">Dernière enquête</span>
+          <h3>{{ main.title }}</h3>
+          <p>{% if main.blurb %}{{ main.blurb }}{% else %}{{ main.cat_label }} · publiée le <time datetime="{{ main.published }}">{{ main.date_label }}</time>.{% endif %}</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="{{ main.url }}" data-yt="{{ main.id }}" data-title="{{ main.title }}">{{ icon('play') }}Regarder</a>
+            <a class="btn btn--ghost" href="{{ wa_link(main.title ~ ' — Relais Populaire', main.url) }}" data-share="whatsapp" data-share-url="{{ main.url }}" data-share-title="{{ main.title }}" target="_blank" rel="noopener">{{ icon('whatsapp') }}Partager</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="feature__side" data-reveal>
+        <h3 class="kicker">Juste avant</h3>
+        <ul class="feature__list">
+          {% for v in long_latest[1:] %}<li>{{ mini(v) }}</li>{% endfor %}
+        </ul>
+        <p class="feature__more"><span class="badge badge--ghost">Record</span><br><strong>« Violence en Martinique : pourquoi ? »</strong> <span class="muted">a dépassé les 90&#8239;000 vues.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ================= COLLABORER ================= #}
+<section class="section" aria-labelledby="collab-title">
+  <div class="container split">
+    <div class="split__sticky" data-reveal>
+      <p class="kicker">Collaborer</p>
+      <h2 class="section-title" id="collab-title">Pourquoi pas nous&#8239;?</h2>
+      <p class="lead">Associations, entreprises, artistes, institutions&#8239;: on met notre regard documentaire et nos moyens de production au service de vos projets.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="collaborer.html">Découvrir nos services</a>
+        <a class="btn btn--ghost" href="contact.html?objet=partenariat">Parlons-en</a>
+      </div>
+    </div>
+    <ul class="rows" data-reveal>
+      {% set services = [
+        ('Reportages & documentaires', 'Raconter un projet, un territoire, une action de terrain.'),
+        ('Portraits & films de présentation', 'Mettre en lumière une personne, une structure, un savoir-faire.'),
+        ('Captation d’événements', 'Sport, culture, conférences : tournage, interviews, montage.'),
+        ('Formats courts pour les réseaux', 'Shorts, Reels, Stories : des vidéos pensées pour être partagées.'),
+        ('Images aériennes', 'Des prises de vue par drone pour révéler un lieu ou un événement.'),
+        ('Affiches & visuels', 'Flyers, affiches, miniatures et identité visuelle.')
+      ] %}
+      {% for t, d in services %}
+      <li><a class="row" href="collaborer.html#services"><span class="row__num">0{{ loop.index }}</span><span class="row__title">{{ t }}<span class="row__text">{{ d }}</span></span>{{ icon('arrow') }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ================= REJOINDRE LE RELAIS ================= #}
+<section class="section section--tight" aria-labelledby="relais-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Rejoindre le relais</p>
+        <h2 class="section-title" id="relais-title">Fais vivre le relais.</h2>
+      </div>
+      <p class="lead">Un média populaire vit grâce à sa communauté. Voici comment nous aider à aller plus loin.</p>
+    </div>
+    <ul class="cards">
+      <li data-reveal>
+        <a class="card" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">
+          <span class="card__icon">{{ icon('youtube') }}</span>
+          <h3>S’abonner</h3>
+          <p>Rejoins la communauté et ne rate aucune actu ni aucune enquête.</p>
+          <span class="card__cta">Sur YouTube {{ icon('arrow-up') }}</span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="card" href="{{ wa_link('Relais Populaire, le média qui raconte la Martinique', site.url) }}" data-share="whatsapp" data-share-url="{{ site.url }}" data-share-title="Relais Populaire, le média qui raconte la Martinique" target="_blank" rel="noopener">
+          <span class="card__icon">{{ icon('whatsapp') }}</span>
+          <h3>Partager</h3>
+          <p>Envoie nos vidéos à ta famille et à tes amis&#8239;: c’est comme ça que les histoires circulent.</p>
+          <span class="card__cta">Sur WhatsApp {{ icon('arrow') }}</span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="card" href="contact.html?objet=sujet">
+          <span class="card__icon">{{ icon('mic') }}</span>
+          <h3>Proposer un sujet</h3>
+          <p>Une situation dans ton quartier, une histoire à raconter&#8239;? Écris-nous.</p>
+          <span class="card__cta">Nous écrire {{ icon('arrow') }}</span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="card" href="contact.html?objet=partenariat">
+          <span class="card__icon">{{ icon('hand') }}</span>
+          <h3>Devenir partenaire</h3>
+          <p>Soutenir un média de terrain, ou faire équipe sur un projet.</p>
+          <span class="card__cta">Prendre contact {{ icon('arrow') }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon %}
+{% block content %}
+
+<section class="page-hero">
+  <span class="sphere" aria-hidden="true"></span>
+  <div class="container">
+    <p class="kicker">Contact</p>
+    <h1 class="display">Écris-nous.</h1>
+    <p class="lead">Un sujet à signaler, un témoignage, un projet à filmer&#8239;? On lit tous les messages.</p>
+  </div>
+</section>
+
+<section class="section section--tight" aria-label="Nous contacter">
+  <div class="container contact-grid">
+    <div data-reveal>
+      <ul class="contact-list">
+        <li class="contact-item">
+          <span class="card__icon">{{ icon('mic') }}</span>
+          <div>
+            <h2>Proposer un sujet ou témoigner</h2>
+            <p>Ce qui se passe dans ton quartier nous intéresse. Si tu le souhaites, ton anonymat sera respecté.</p>
+          </div>
+        </li>
+        <li class="contact-item">
+          <span class="card__icon">{{ icon('hand') }}</span>
+          <div>
+            <h2>Projet ou partenariat</h2>
+            <p>Film, captation, formats pour les réseaux, partenariat éditorial&#8239;: parlons de votre projet.</p>
+          </div>
+        </li>
+        <li class="contact-item">
+          <span class="card__icon">{{ icon('scale') }}</span>
+          <div>
+            <h2>Presse et droit de réponse</h2>
+            <p>Pour toute autre demande, y compris l’exercice d’un droit de réponse.</p>
+          </div>
+        </li>
+      </ul>
+      <p class="contact-direct">Ou directement&#8239;: <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      <p class="muted">Sur YouTube&#8239;: <a class="link-arrow" href="{{ site.youtube }}" target="_blank" rel="noopener">@Relaispopulaire {{ icon('arrow-up') }}</a></p>
+    </div>
+
+    <form class="form" action="mailto:{{ site.email }}" method="post" enctype="text/plain" data-mailto-form="{{ site.email }}" data-reveal>
+      <div class="field">
+        <label for="f-objet">Objet</label>
+        <select id="f-objet" name="objet">
+          <option value="sujet">Proposer un sujet / témoigner</option>
+          <option value="partenariat">Projet ou partenariat</option>
+          <option value="rejoindre">Rejoindre l’équipe</option>
+          <option value="presse">Presse / droit de réponse</option>
+          <option value="autre">Autre demande</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-nom">Nom ou pseudo</label>
+        <input id="f-nom" name="nom" type="text" autocomplete="name" required>
+      </div>
+      <div class="form__row">
+        <div class="field">
+          <label for="f-email">E-mail <span class="hint">(facultatif)</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label for="f-tel">Téléphone <span class="hint">(facultatif)</span></label>
+          <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" name="message" required></textarea>
+      </div>
+      <div class="form__foot">
+        <p class="form__legal">En cliquant, ta messagerie s’ouvre avec le message prêt à partir. Rien n’est enregistré sur ce site. <a href="confidentialite.html">En savoir plus</a></p>
+        <button class="btn btn--primary" type="submit">{{ icon('mail') }}Envoyer le message</button>
+      </div>
+      <p class="form__note" data-form-note hidden>Ta messagerie ne s’est pas ouverte&#8239;? Écris-nous directement à <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

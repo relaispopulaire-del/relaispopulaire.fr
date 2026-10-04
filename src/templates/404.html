@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon %}
+{% block content %}
+<section class="notfound">
+  <div>
+    <span class="sphere" aria-hidden="true"></span>
+    <p class="kicker">Erreur 404</p>
+    <h1>Page introuvable.</h1>
+    <p>Cette page s’est perdue en chemin. Pas de panique&#8239;: le relais continue par ici.</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="/">Retour à l’accueil</a>
+      <a class="btn btn--ghost" href="/videos.html">{{ icon('play') }}Voir les vidéos</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

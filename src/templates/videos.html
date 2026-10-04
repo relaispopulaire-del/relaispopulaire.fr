@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon, vitem, scard, cta_band %}
+{% block content %}
+
+<section class="page-hero">
+  <span class="sphere" aria-hidden="true"></span>
+  <div class="container">
+    <p class="kicker">Vidéos</p>
+    <h1 class="display">L’actu, les enquêtes, le terrain.</h1>
+    <p class="lead">Nos Shorts suivent l’actualité de la Martinique au jour le jour. Nos enquêtes et nos portraits prennent le temps d’aller plus loin. Plus de 1&#8239;600 vidéos publiées.</p>
+  </div>
+</section>
+
+<section class="section section--tight" id="shorts" aria-labelledby="shorts-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker kicker--live">L’actu en Shorts</p>
+        <h2 class="section-title" id="shorts-title">Les derniers Shorts</h2>
+      </div>
+      <a class="link-arrow" href="{{ site.youtube }}/shorts" target="_blank" rel="noopener">Tous les Shorts {{ icon('arrow-up') }}</a>
+    </div>
+    {% set n = ([shorts|length, 18]|min) // 6 * 6 %}
+    <ul class="shorts-grid" aria-label="Derniers Shorts publiés">
+      {% for s in shorts[:(n or shorts|length)] %}
+      <li data-reveal>{{ scard(s, dated=true) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" id="longues" aria-labelledby="longues-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Pour aller plus loin</p>
+        <h2 class="section-title" id="longues-title">Nos dernières enquêtes</h2>
+      </div>
+    </div>
+    <ul class="vgrid">
+      {% for v in long_latest %}
+      <li data-reveal>{{ vitem(v, dated=true) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" id="direct" aria-labelledby="direct-title">
+  <div class="container">
+    <h2 class="visually-hidden" id="direct-title">Dernières publications de la chaîne</h2>
+    <div class="embed" data-reveal>
+      <a class="embed__poster" href="https://www.youtube.com/playlist?list={{ site.uploads_playlist }}" data-embed-playlist="{{ site.uploads_playlist }}" target="_blank" rel="noopener">
+        <span class="sphere" aria-hidden="true"></span>
+        <span class="badge">En direct de la chaîne</span>
+        <span class="embed__title">Toutes nos vidéos, dès leur sortie.</span>
+        <span class="embed__btn"><span class="play">{{ icon('play') }}</span>Lancer la lecture</span>
+        <span class="embed__note">Le lecteur YouTube se charge uniquement quand tu cliques.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="selection-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Sélection</p>
+        <h2 class="section-title" id="selection-title">À voir et à partager</h2>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="chips" role="group" aria-label="Filtrer par thème">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">Tout</button>
+        {% for c in cats %}
+        <button class="chip" type="button" data-filter="{{ c.id }}" aria-pressed="false">{{ c.label }}</button>
+        {% endfor %}
+      </div>
+      <p class="toolbar__count" data-filter-status aria-live="polite">{{ videos|length }} vidéos</p>
+    </div>
+    <ul class="vgrid">
+      {% for v in videos %}
+      <li data-cat="{{ v.cat }}">{{ vitem(v) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{{ cta_band('Ne rate aucune actu.', 'Abonne-toi à la chaîne : chaque nouveau Short et chaque enquête arrivent directement chez toi.', site.youtube_subscribe, 'S’abonner sur YouTube', site.youtube ~ '/shorts', 'Voir tous les Shorts', external=true) }}
+
+{% endblock %}

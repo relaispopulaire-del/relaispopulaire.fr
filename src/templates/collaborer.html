@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon, vcard, cta_band %}
+{% block content %}
+
+<section class="page-hero">
+  <span class="sphere" aria-hidden="true"></span>
+  <div class="container">
+    <p class="kicker">Collaborer</p>
+    <h1 class="display">Pourquoi pas nous&#8239;?</h1>
+    <p class="lead">Associations, entreprises, artistes, institutions&#8239;: confiez-nous vos images. Notre regard documentaire, notre audience et nos moyens de production au service de vos projets.</p>
+    <div class="actions page-hero__actions">
+      <a class="btn btn--primary" href="contact.html?objet=partenariat">Parlons de votre projet</a>
+      <a class="btn btn--ghost" href="#realisations">Voir des réalisations</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="services" aria-labelledby="services-title">
+  <div class="container split">
+    <div class="split__sticky" data-reveal>
+      <p class="kicker">Services</p>
+      <h2 class="section-title" id="services-title">Ce qu’on peut faire ensemble.</h2>
+      <p class="lead">Du court format pour les réseaux au documentaire de 20 minutes, on adapte l’écriture et le dispositif à votre objectif.</p>
+    </div>
+    <ul class="rows" data-reveal>
+      {% set services = [
+        ('Reportages & documentaires', 'Raconter un projet, un territoire, une action de terrain, avec le format qui fait notre force : 15 à 20 minutes au plus près des gens.'),
+        ('Portraits & films de présentation', 'Mettre en lumière une personne, une structure, un savoir-faire ou un produit du péyi.'),
+        ('Captation d’événements', 'Sport, culture, conférences, lancements : tournage, interviews et montage, livrés rapidement.'),
+        ('Formats courts pour les réseaux', 'Shorts, Reels, Stories : des vidéos verticales pensées pour être vues et partagées.'),
+        ('Images aériennes', 'Des prises de vue par drone pour révéler un lieu, un chantier ou un événement.'),
+        ('Affiches & visuels', 'Flyers, affiches, miniatures et identité visuelle pour accompagner vos communications.')
+      ] %}
+      {% for t, d in services %}
+      <li><div class="row"><span class="row__num">0{{ loop.index }}</span><span class="row__title">{{ t }}<span class="row__text">{{ d }}</span></span></div></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="pourqui-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Pour qui</p>
+        <h2 class="section-title" id="pourqui-title">Ceux qui font bouger la Martinique.</h2>
+      </div>
+    </div>
+    <ul class="chips-list" data-reveal>
+      <li>Associations</li>
+      <li>Entreprises &amp; commerces</li>
+      <li>Artistes &amp; créateurs</li>
+      <li>Collectivités &amp; institutions</li>
+      <li>Clubs &amp; ligues sportives</li>
+      <li>Organisateurs d’événements</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="methode-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Méthode</p>
+        <h2 class="section-title" id="methode-title">Cinq étapes, zéro surprise.</h2>
+      </div>
+    </div>
+    <ol class="steps" data-reveal>
+      <li class="step"><span class="step__num">01</span><h3>On s’écoute</h3><p>Vos objectifs, votre public, votre message&#8239;: on commence par comprendre ce que vous voulez dire.</p></li>
+      <li class="step"><span class="step__num">02</span><h3>On écrit</h3><p>Angle, repérages, planning&#8239;: on construit le film avant de tourner.</p></li>
+      <li class="step"><span class="step__num">03</span><h3>On tourne</h3><p>Une équipe légère, du matériel professionnel et le sens du terrain.</p></li>
+      <li class="step"><span class="step__num">04</span><h3>On monte</h3><p>Montage, étalonnage, son, sous-titres&#8239;: un rendu soigné, prêt à diffuser.</p></li>
+      <li class="step"><span class="step__num">05</span><h3>On diffuse</h3><p>YouTube, réseaux sociaux, votre site&#8239;: des formats adaptés à chaque écran.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="moyens-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Nos moyens</p>
+        <h2 class="section-title" id="moyens-title">Équipés pour le terrain.</h2>
+      </div>
+      <p class="lead">Nous avons investi dans du matériel professionnel pour livrer une image à la hauteur de vos projets.</p>
+    </div>
+    <ul class="values">
+      <li class="value" data-reveal><span class="card__icon">{{ icon('camera') }}</span><h3>Caméras plein format</h3><p>Une image cinéma, de jour comme de nuit.</p></li>
+      <li class="value" data-reveal><span class="card__icon">{{ icon('drone') }}</span><h3>Drone</h3><p>Des vues aériennes pour donner de l’ampleur au récit.</p></li>
+      <li class="value" data-reveal><span class="card__icon">{{ icon('mic') }}</span><h3>Prise de son</h3><p>Des voix claires, même en extérieur.</p></li>
+      <li class="value" data-reveal><span class="card__icon">{{ icon('film') }}</span><h3>Montage &amp; étalonnage</h3><p>Post-production professionnelle, couleurs soignées, sous-titres.</p></li>
+      <li class="value" data-reveal><span class="card__icon">{{ icon('pin') }}</span><h3>Mobilité</h3><p>Un véhicule de tournage pour aller partout dans l’île.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" id="realisations" aria-labelledby="real-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Réalisations</p>
+        <h2 class="section-title" id="real-title">Quelques tournages.</h2>
+      </div>
+      <a class="link-arrow" href="videos.html">Toutes nos vidéos {{ icon('arrow') }}</a>
+    </div>
+    <ul class="vgrid">
+      {% for v in collab_refs %}
+      <li data-reveal>{{ vcard(v, sizes='(max-width: 700px) 92vw, 400px') }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{{ cta_band('Un projet en tête ?', 'Décrivez-le-nous en quelques lignes : on vous répond rapidement pour en parler.', 'contact.html?objet=partenariat', 'Écrire à l’équipe', 'mailto:' ~ site.email, site.email) }}
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% from 'partials/macros.html' import icon %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="canonical" href="{{ site.url }}{{ page.path }}">
+<meta name="robots" content="{{ page.robots or 'index, follow, max-image-preview:large' }}">
+<meta name="theme-color" content="#050605">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="{{ site.org }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:description" content="{{ page.description }}">
+<meta property="og:url" content="{{ site.url }}{{ page.path }}">
+<meta property="og:image" content="{{ site.url }}/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Relais Populaire, le média qui raconte la Martinique">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ root }}favicon.ico" sizes="32x32">
+<link rel="icon" href="{{ root }}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ root }}assets/img/apple-touch-icon.png">
+<link rel="manifest" href="{{ root }}site.webmanifest">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preload" href="{{ root }}assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}assets/css/style.css?v={{ v_css }}">
+<script>{{ head_script }}</script>
+<script src="{{ root }}assets/js/main.js?v={{ v_js }}" defer></script>
+<script type="application/ld+json">{{ jsonld }}</script>
+</head>
+<body class="page-{{ page.slug }}">
+{% include 'partials/icons.html' %}
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="{{ root }}index.html" aria-label="Relais Populaire, retour à l’accueil">{{ logo_horiz_markup }}</a>
+    <nav class="nav" aria-label="Navigation principale">
+      {% for item in nav %}
+      <a href="{{ root }}{{ item.href }}"{% if item.slug == page.slug %} aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn motion-toggle" type="button" data-motion-toggle aria-label="Mettre les animations en pause" title="Mettre les animations en pause">{{ icon('pause', 'icon-pause') }}{{ icon('play', 'icon-play') }}</button>
+      <a class="btn btn--green btn--sm" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">{{ icon('youtube') }}S’abonner</a>
+      <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Ouvrir le menu"><span class="bars" aria-hidden="true"></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <nav aria-label="Navigation mobile">
+    <a href="{{ root }}index.html"{% if page.slug == 'accueil' %} aria-current="page"{% endif %}>Accueil {{ icon('arrow') }}</a>
+    {% for item in nav %}
+    <a href="{{ root }}{{ item.href }}"{% if item.slug == page.slug %} aria-current="page"{% endif %}>{{ item.label }} {{ icon('arrow') }}</a>
+    {% endfor %}
+  </nav>
+  <div class="actions">
+    <a class="btn btn--green" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">{{ icon('youtube') }}S’abonner</a>
+    <a class="btn btn--ghost" href="{{ root }}contact.html?objet=sujet">Proposer un sujet</a>
+  </div>
+</div>
+
+<main id="contenu">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{{ root }}index.html" aria-label="Relais Populaire, retour à l’accueil">{{ logo_stacked_markup }}</a>
+        <p>Le média communautaire qui raconte la Martinique, au plus près des gens. <span lang="gcf">Sé ta nou.</span></p>
+      </div>
+      <div class="footer-col">
+        <h2>Explorer</h2>
+        <ul>
+          <li><a href="{{ root }}index.html">Accueil</a></li>
+          {% for item in nav %}<li><a href="{{ root }}{{ item.href }}">{{ item.label }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Participer</h2>
+        <ul>
+          <li><a href="{{ root }}contact.html?objet=sujet">Proposer un sujet</a></li>
+          <li><a href="{{ root }}contact.html?objet=rejoindre">Rejoindre l’équipe</a></li>
+          <li><a href="{{ root }}contact.html?objet=partenariat">Devenir partenaire</a></li>
+          <li><a href="{{ wa_link('Relais Populaire, le média qui raconte la Martinique', site.url) }}" data-share="whatsapp" data-share-url="{{ site.url }}" data-share-title="Relais Populaire, le média qui raconte la Martinique" target="_blank" rel="noopener">Partager le site</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Suivre</h2>
+        <ul>
+          <li><a href="{{ site.youtube }}" target="_blank" rel="noopener">YouTube @Relaispopulaire</a></li>
+          {% for s in site.socials %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }} {{ s.handle }}</a></li>{% endfor %}
+          <li><a href="{{ site.youtube }}/shorts" target="_blank" rel="noopener">Nos Shorts</a></li>
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 {{ site.org }}, Martinique</p>
+      <nav aria-label="Informations légales">
+        <a href="{{ root }}mentions-legales.html">Mentions légales</a>
+        <a href="{{ root }}confidentialite.html">Confidentialité</a>
+        <a href="#contenu">Haut de page ↑</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<dialog class="player" id="player" aria-label="Lecteur vidéo">
+  <button class="icon-btn player__close" type="button" data-player-close aria-label="Fermer la vidéo">{{ icon('close') }}</button>
+  <div class="player__frame"></div>
+  <div class="player__bar">
+    <p class="player__title" data-player-title></p>
+    <div class="player__actions">
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-share data-share="whatsapp" target="_blank" rel="noopener">{{ icon('whatsapp') }}Partager</a>
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-link target="_blank" rel="noopener">{{ icon('youtube') }}Ouvrir sur YouTube</a>
+    </div>
+  </div>
+</dialog>
+</body>
+</html>

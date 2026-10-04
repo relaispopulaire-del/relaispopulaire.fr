@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon, cta_band %}
+{% block content %}
+
+<section class="page-hero">
+  <span class="sphere" aria-hidden="true"></span>
+  <div class="container">
+    <p class="kicker">Le média</p>
+    <h1 class="display">Un relais entre les gens et l’info.</h1>
+    <p class="lead">Relais Populaire Média (RPM) est un média communautaire né en Martinique. On raconte la vie de nos quartiers, de nos communes et de notre société, avec une ambition&#8239;: faire entendre ces histoires dans toute la Caraïbe, en France et dans la diaspora.</p>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="qui-title">
+  <div class="container split">
+    <div data-reveal>
+      <p class="kicker">Qui sommes-nous</p>
+      <h2 class="section-title" id="qui-title">Un média de proximité.</h2>
+    </div>
+    <div class="prose" data-reveal>
+      <p>Nos vidéos documentaires et nos enquêtes partent du terrain&#8239;: des habitants, des jeunes, des familles, des associations, des acteurs économiques et culturels qui font la Martinique d’aujourd’hui.</p>
+      <p>Au quotidien, nos <strong>formats courts</strong> suivent l’actualité au plus près&#8239;: mobilisations, prises de parole, initiatives et savoir-faire du péyi. Pour aller plus loin, il y a l’<strong>enquête de quartier</strong>&#8239;: 15 à 20 minutes au plus près des gens, pour prendre le temps de comprendre plutôt que de juger.</p>
+      <p>Plus de <strong>{{ stats.followers_label }} personnes</strong> nous suivent sur TikTok, Instagram, Facebook et YouTube, et nos vidéos circulent de téléphone en téléphone, sur WhatsApp, dans les familles et les quartiers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="devise-title">
+  <div class="container">
+    <h2 class="visually-hidden" id="devise-title">Notre devise</h2>
+    <blockquote class="quote" data-reveal>
+      <p><span lang="gcf">« Sé ta nou. »</span></p>
+      <footer>En créole, <span lang="gcf">« sé ta nou »</span> veut dire « c’est à nous ». Ces histoires appartiennent à celles et ceux qui les vivent. Notre rôle&#8239;: les relayer, fidèlement.</footer>
+    </blockquote>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="demarche-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Notre démarche</p>
+        <h2 class="section-title" id="demarche-title">Terrain, enquête, parole.</h2>
+      </div>
+    </div>
+    <ul class="pillars">
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">01</span>
+        <h3>Le terrain</h3>
+        <p>On se déplace dans les quartiers, les communes, les marchés, les associations. On filme les gens là où ils vivent, et on revient quand il le faut.</p>
+      </li>
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">02</span>
+        <h3>L’enquête</h3>
+        <p>On documente, on vérifie, on croise les témoignages, les chiffres et les points de vue des spécialistes avant de publier.</p>
+      </li>
+      <li class="pillar" data-reveal>
+        <span class="pillar__num">03</span>
+        <h3>La parole</h3>
+        <p>On tend le micro à celles et ceux qu’on entend rarement. En français comme en créole, avec respect.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" id="charte" aria-labelledby="charte-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Charte éditoriale</p>
+        <h2 class="section-title" id="charte-title">Nos engagements.</h2>
+      </div>
+      <p class="lead">Un média populaire doit être digne de la confiance de son public. Voici les règles que nous nous fixons.</p>
+    </div>
+    <ul class="values">
+      <li class="value" data-reveal><span class="value__num">01</span><h3>Rigueur</h3><p>On vérifie les faits, on croise les sources et on distingue clairement les faits des opinions.</p></li>
+      <li class="value" data-reveal><span class="value__num">02</span><h3>Respect</h3><p>On respecte les personnes filmées, leur image et leur parole. Le consentement passe avant tout, et les mineurs sont protégés.</p></li>
+      <li class="value" data-reveal><span class="value__num">03</span><h3>Liberté de ton</h3><p>On traite les sujets qui comptent pour la population, y compris quand ils dérangent.</p></li>
+      <li class="value" data-reveal><span class="value__num">04</span><h3>Droit de réponse</h3><p>Toute personne mise en cause dans une de nos vidéos peut nous écrire pour exercer son droit de réponse.</p></li>
+      <li class="value" data-reveal><span class="value__num">05</span><h3>Correction</h3><p>Si on se trompe, on corrige, et on le dit.</p></li>
+      <li class="value" data-reveal><span class="value__num">06</span><h3>Protection des sources</h3><p>Celles et ceux qui nous confient une information peuvent demander à rester anonymes.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="ou-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Notre territoire</p>
+        <h2 class="section-title" id="ou-title">D’ici, et pour tous les nôtres.</h2>
+      </div>
+    </div>
+    <ul class="places">
+      <li class="place" data-reveal><strong>Martinique</strong><span>Notre base&#8239;: les quartiers, les communes, les gens.</span></li>
+      <li class="place" data-reveal><strong>Caraïbe</strong><span>Nos voisins, nos histoires communes, nos coopérations.</span></li>
+      <li class="place" data-reveal><strong>Hexagone</strong><span>Les Martiniquais qui vivent et travaillent en France.</span></li>
+      <li class="place" data-reveal><strong>Diaspora</strong><span>Partout où l’on garde la Martinique au cœur.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="asso-title">
+  <div class="container split">
+    <div data-reveal>
+      <p class="kicker">Organisation</p>
+      <h2 class="section-title" id="asso-title">Un média associatif.</h2>
+    </div>
+    <div class="prose" data-reveal>
+      <p>Relais Populaire Média se structure en <strong>association loi 1901</strong>. Son fonctionnement et sa ligne éditoriale s’inscrivent dans le cadre du droit de la presse, avec un directeur ou une directrice de la publication responsable des contenus.</p>
+      <p>La coopération avec la Caraïbe et l’international est inscrite dans notre projet dès le départ.</p>
+      <p><a href="mentions-legales.html">Consulter les mentions légales</a></p>
+    </div>
+  </div>
+</section>
+
+{{ cta_band('Tu connais ton quartier mieux que personne.', 'Tu filmes, tu montes, tu écris, ou tu as simplement une histoire à raconter ? Le relais a besoin de toi.', 'contact.html?objet=rejoindre', 'Rejoindre le relais', 'contact.html?objet=sujet', 'Proposer un sujet') }}
+
+{% endblock %}

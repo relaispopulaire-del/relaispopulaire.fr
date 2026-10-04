@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">Vos données</p>
+    <h1 class="display">Confidentialité</h1>
+    <p class="lead">En bref&#8239;: ce site ne dépose aucun cookie, n’utilise aucun outil de mesure d’audience et n’affiche aucune publicité.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container legal-grid">
+    <ul class="toc" aria-label="Sommaire">
+      <li><a href="#responsable">Responsable</a></li>
+      <li><a href="#cookies">Cookies et traceurs</a></li>
+      <li><a href="#videos">Vidéos YouTube</a></li>
+      <li><a href="#contact">Messages</a></li>
+      <li><a href="#journaux">Hébergement</a></li>
+      <li><a href="#droits">Vos droits</a></li>
+    </ul>
+    <div class="prose">
+      <h2 id="responsable">Responsable du traitement</h2>
+      <p>{{ site.legal.publisher }}, joignable à <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+
+      <h2 id="cookies">Cookies et traceurs</h2>
+      <p>Ce site ne dépose <strong>aucun cookie</strong> et n’intègre aucun outil de statistiques, de publicité ou de réseau social susceptible de vous suivre.</p>
+      <p>Seule votre préférence d’affichage des animations (bouton pause) peut être mémorisée dans votre navigateur. Cette information reste sur votre appareil et ne nous est jamais transmise.</p>
+
+      <h2 id="videos">Vidéos YouTube</h2>
+      <p>Les miniatures des vidéos sont affichées depuis les serveurs de YouTube (Google), qui reçoivent à cette occasion l’adresse IP de votre appareil, comme pour toute image hébergée en ligne.</p>
+      <p>Les lecteurs vidéo, eux, ne se chargent <strong>que lorsque vous cliquez</strong> sur une vidéo. Ils utilisent le mode «&#8239;confidentialité avancée&#8239;» de YouTube (youtube-nocookie.com). Dès que vous lancez une vidéo, la <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">politique de confidentialité de Google</a> s’applique.</p>
+
+      <h2 id="contact">Messages que vous nous envoyez</h2>
+      <p>Le formulaire de contact ne transmet rien à ce site&#8239;: il ouvre simplement votre messagerie avec votre message prêt à partir. Les e-mails que nous recevons servent uniquement à vous répondre. Ils ne sont ni vendus, ni cédés, et sont supprimés lorsqu’ils ne sont plus utiles à l’échange, au plus tard trois ans après le dernier contact.</p>
+      <p>Si vous nous confiez une information en demandant l’anonymat, votre identité n’est jamais divulguée.</p>
+
+      <h2 id="journaux">Hébergement et journaux techniques</h2>
+      <p>Le site est hébergé par GitHub Pages, un service de GitHub, Inc. (États-Unis). Comme pour tout site internet, l’hébergeur enregistre l’adresse IP des visiteurs à des fins de sécurité, que vous ayez un compte GitHub ou non. Nous n’avons pas accès à ces journaux.</p>
+      <p>GitHub adhère au cadre de protection des données UE–États-Unis (Data Privacy Framework). Pour en savoir plus&#8239;: <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">déclaration de confidentialité de GitHub</a>.</p>
+
+      <h2 id="droits">Vos droits</h2>
+      <p>Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, vous disposez d’un droit d’accès, de rectification, d’effacement, d’opposition et de limitation du traitement de vos données. Pour les exercer, écrivez-nous à <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+      <p>Vous pouvez également adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a>.</p>
+      <p class="muted">Dernière mise à jour&#8239;: 4 octobre 2026.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
