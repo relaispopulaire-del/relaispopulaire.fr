@@ -64,3 +64,27 @@
   </div>
 </section>
 {%- endmacro %}
+
+{# ---------- Réseaux : suivre + partager ---------- #}
+{% macro follow_grid(share_url=None, share_title=None, share_label='Envoie le site à tes proches') -%}
+{% set su = share_url or site.url %}{% set st = share_title or 'Relais Populaire, le média qui raconte la Martinique' %}
+<ul class="follow-grid">
+  {% for s in follow %}
+  <li data-reveal>
+    <a class="follow" href="{{ s.link }}" target="_blank" rel="noopener">
+      <span class="follow__name">{{ s.name }}</span>
+      <span class="follow__handle">{{ s.handle }}</span>
+      {% if s.followers_label %}<span class="follow__count"><strong>{{ s.followers_label }}</strong> abonnés</span>{% endif %}
+      <span class="follow__cta">{{ s.cta }} {{ icon('arrow-up') }}</span>
+    </a>
+  </li>
+  {% endfor %}
+  <li data-reveal>
+    <a class="follow follow--share" href="{{ wa_link(st, su) }}" data-share="whatsapp" data-share-url="{{ su }}" data-share-title="{{ st }}" target="_blank" rel="noopener">
+      <span class="follow__name">WhatsApp</span>
+      <span class="follow__handle">{{ share_label }}</span>
+      <span class="follow__cta">Partager {{ icon('arrow') }}</span>
+    </a>
+  </li>
+</ul>
+{%- endmacro %}
