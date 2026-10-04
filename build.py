@@ -209,6 +209,7 @@ def svg_inline(name: str, id_prefix: str) -> Markup:
 
 
 NAV = [
+    {"slug": "live", "href": "live.html", "label": "Live"},
     {"slug": "videos", "href": "videos.html", "label": "Vidéos"},
     {"slug": "le-media", "href": "le-media.html", "label": "Le média"},
     {"slug": "collaborer", "href": "collaborer.html", "label": "Collaborer"},
@@ -227,6 +228,12 @@ PAGES = [
         "title": "Vidéos et enquêtes — Relais Populaire",
         "description": "Les derniers Shorts qui font l’actu en Martinique, nos enquêtes et nos reportages : jeunesse, quartiers, mémoire, montagne Pelée, sport.",
         "priority": "0.9",
+    },
+    {
+        "tpl": "live.html", "out": "live.html", "slug": "live", "path": "/live.html",
+        "title": "Le live — Relais Populaire en direct",
+        "description": "Suis Relais Populaire en direct depuis le terrain en Martinique. Quand nous sommes en live, le direct s’affiche ici ; sinon, retrouve notre dernier live en replay.",
+        "priority": "0.8",
     },
     {
         "tpl": "le-media.html", "out": "le-media.html", "slug": "le-media", "path": "/le-media.html",
@@ -368,6 +375,7 @@ def build():
         long_latest=LONG,
         stats=STATS,
         follow=FOLLOW,
+        lives_playlist="UULV" + site["youtube_channel_id"][2:],
         fb_share=fb_share,
         collab_refs=pick(vdata["collab_refs"]),
         V=VIDEOS,
@@ -392,7 +400,7 @@ def build():
     fresh = max(site["updated"], latest.get("updated", "")[:10])
     for p in PAGES:
         if p.get("sitemap", True):
-            lastmod = fresh if p["slug"] in ("accueil", "videos") else site["updated"]
+            lastmod = fresh if p["slug"] in ("accueil", "videos", "live") else site["updated"]
             urls.append(
                 f"  <url><loc>{site['url']}{p['path']}</loc><lastmod>{lastmod}</lastmod>"
                 f"<priority>{p['priority']}</priority></url>"
