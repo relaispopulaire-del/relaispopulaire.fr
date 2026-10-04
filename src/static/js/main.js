@@ -143,6 +143,13 @@
   function whatsappUrl(text, url) {
     return 'https://wa.me/?text=' + encodeURIComponent(text + '\n' + url);
   }
+  function facebookUrl(url) {
+    return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+  }
+  function flash(btn) {
+    btn.classList.add('is-copied');
+    window.setTimeout(function () { btn.classList.remove('is-copied'); }, 2200);
+  }
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-share]');
     if (!btn || isPreview) return;
@@ -150,12 +157,26 @@
     var title = btn.getAttribute('data-share-title') || document.title;
     var text = title + ' — Relais Populaire';
     var mode = btn.getAttribute('data-share');
-    if (mode !== 'whatsapp' && navigator.share) {
-      e.preventDefault();
-      navigator.share({ title: title, text: text, url: url }).catch(function () { /* annulé */ });
+    e.preventDefault();
+    if (mode === 'facebook') {
+      window.open(facebookUrl(url), '_blank', 'noopener');
       return;
     }
-    e.preventDefault();
+    if (mode === 'native') {
+      // Sur téléphone : Instagram, TikTok, Messenger, SMS… via le menu de partage du système
+      if (navigator.share) {
+        navigator.share({ title: title, text: text, url: url }).catch(function () { /* annulé */ });
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { flash(btn); }, function () {
+          window.open(url, '_blank', 'noopener');
+        });
+        return;
+      }
+      window.open(url, '_blank', 'noopener');
+      return;
+    }
     window.open(whatsappUrl(text, url), '_blank', 'noopener');
   });
 
@@ -191,12 +212,15 @@
     if (t) t.textContent = title || '';
     var link = $('[data-player-link]', dialog);
     if (link) link.href = youtubeUrl(id, isShort);
-    var share = $('[data-player-share]', dialog);
-    if (share) {
-      share.setAttribute('data-share-url', youtubeUrl(id, isShort));
+    $$('[data-player-share]', dialog).forEach(function (share) {
+      var shareUrl = youtubeUrl(id, isShort);
+      var mode = share.getAttribute('data-share');
+      share.setAttribute('data-share-url', shareUrl);
       share.setAttribute('data-share-title', title || 'Relais Populaire');
-      share.href = whatsappUrl((title || 'Relais Populaire') + ' — Relais Populaire', youtubeUrl(id, isShort));
-    }
+      share.href = mode === 'facebook' ? facebookUrl(shareUrl)
+        : mode === 'whatsapp' ? whatsappUrl((title || 'Relais Populaire') + ' — Relais Populaire', shareUrl)
+        : shareUrl;
+    });
     dialog.showModal();
   }
 
