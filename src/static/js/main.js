@@ -254,7 +254,7 @@
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube-nocookie.com/embed/videoseries?list=' +
         encodeURIComponent(btn.getAttribute('data-embed-playlist')) + '&autoplay=1&rel=0&playsinline=1';
-      iframe.title = 'Dernières vidéos de Relais Populaire';
+      iframe.title = btn.getAttribute('data-embed-title') || 'Dernières vidéos de Relais Populaire';
       iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
       iframe.setAttribute('allowfullscreen', '');
       iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
