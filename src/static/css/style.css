@@ -1781,3 +1781,29 @@ a.card:hover .card__cta .icon { transform: translateX(4px); }
   .site-header, .mobile-menu, .hero__scene, .marquee, .player, .scroll-cue { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* ---------- Live ---------- */
+.nav__live,
+.mobile-menu nav a.nav__live { display: inline-flex; align-items: center; gap: 8px; }
+.mobile-menu nav a.nav__live { display: flex; justify-content: flex-start; }
+.mobile-menu nav a.nav__live .icon { margin-left: auto; }
+.nav__live::before {
+  content: "";
+  flex: none;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ff4d3d;
+  box-shadow: 0 0 0 0 rgba(255, 77, 61, 0.55);
+  animation: live-pulse 2s var(--ease) infinite;
+}
+.mobile-menu nav a.nav__live::before { width: 12px; height: 12px; }
+[data-motion="off"] .nav__live::before { animation: none; }
+.badge--live { background: #ff4d3d; color: #fff; }
+.badge--live::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #fff;
+}
+.embed--live { box-shadow: 0 0 0 1px rgba(255, 77, 61, 0.18), 0 40px 120px -40px rgba(255, 77, 61, 0.25); }
+.live-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
