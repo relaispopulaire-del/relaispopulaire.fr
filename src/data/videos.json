@@ -1,0 +1,59 @@
+{
+  "categories": [
+    {"id": "enquetes", "label": "Enquêtes"},
+    {"id": "jeunesse", "label": "Jeunesse"},
+    {"id": "memoire", "label": "Mémoire & culture"},
+    {"id": "pelee", "label": "Montagne Pelée"},
+    {"id": "sport", "label": "Sport"},
+    {"id": "societe", "label": "Société"}
+  ],
+  "videos": [
+    {"id": "hfjPP8a62uo", "title": "Derrière la violence des quartiers… qu’a découvert Rodrigue Petitot ?", "cat": "enquetes", "thumb": "max", "blurb": "Une enquête de terrain au cœur des quartiers, vue plus de 20 000 fois dès sa première semaine en ligne."},
+    {"id": "ZRaAfQ4G5Vw", "title": "Violence en Martinique : pourquoi ?", "cat": "enquetes", "thumb": "max"},
+    {"id": "bbGXT2DSRuE", "title": "La BAKANALISION de la société martiniquaise", "cat": "societe", "thumb": "max"},
+    {"id": "YoNaw9HxQA8", "title": "La Martinique est-elle en train de perdre sa jeunesse ?", "cat": "jeunesse", "thumb": "max"},
+    {"id": "6voRlr01IwA", "title": "Une femme méconnue derrière un symbole que tous les Martiniquais connaissent", "cat": "memoire", "thumb": "sd"},
+    {"id": "eW6lI0-PCOg", "title": "Pourquoi certains habitants fuient-ils leur maison dans cette commune de Martinique ?", "cat": "enquetes", "thumb": "max"},
+    {"id": "ZHVpAmYwBYo", "title": "Nos jeunes en danger : Zatrap, le film martiniquais qui alerte", "cat": "jeunesse", "thumb": "max"},
+    {"id": "BZqTsPpRCow", "title": "Une incroyable découverte au cœur de la ville du Vauclin", "cat": "societe", "thumb": "max"},
+    {"id": "CBaxtNfL6N8", "title": "De dealer à mentor : l’histoire vraie de Dimitri", "cat": "jeunesse", "thumb": "max"},
+    {"id": "LyxdGNe9TFk", "title": "La véritable histoire derrière les statues en Martinique : 11 militants face à l’État français", "cat": "memoire", "thumb": "max"},
+    {"id": "uGjNFm-Pd20", "title": "Et si la montagne Pelée se réveillait…", "cat": "pelee", "thumb": "max"},
+    {"id": "trhjzK6oIKE", "title": "Champion du Kilomètre vertical 2025 : il a vaincu la montagne Pelée", "cat": "sport", "thumb": "max"},
+    {"id": "6rk0m7EVZds", "title": "Que reste-t-il d’un paradis quand le trouble s’installe en son cœur ?", "cat": "enquetes", "thumb": "max"},
+    {"id": "dBj9_5kgpX8", "title": "Dans les coulisses du trail en Martinique : interview d’Alain Chalono (Club Manikou)", "cat": "sport", "thumb": "max"},
+    {"id": "F4Nd8P8wn3w", "title": "Séismes sous la montagne Pelée : le directeur de l’Observatoire volcanologique s’exprime", "cat": "pelee", "thumb": "max"},
+    {"id": "u0_akuxtGnM", "title": "Montagne Pelée : les bons gestes avant, pendant et après une éruption", "cat": "pelee", "thumb": "sd"},
+    {"id": "5b2veOp6iqQ", "title": "Au cœur du Mémorial de 1902", "cat": "memoire", "thumb": "max"},
+    {"id": "5THHCZWfSTI", "title": "Challenge des entreprises 2025 : le Challenge Pierre-Michel Mergirie", "cat": "sport", "thumb": "max"},
+    {"id": "8T3H3AI9FZE", "title": "Université des Antilles : distribution de dons", "cat": "societe", "thumb": "max"},
+    {"id": "Ba7P563PsgU", "title": "L’association MG Handicap interpelle la CTM", "cat": "societe", "thumb": "max"},
+    {"id": "n-krUzBCksE", "title": "Serpent : ce que tu dois savoir", "cat": "societe", "thumb": "max"}
+  ],
+  "shorts": [
+    {"id": "yafnBJDBE9s", "title": "À La Trinité, la cuisine généreuse de Pull Up", "thumb": "https://i.ytimg.com/vi/yafnBJDBE9s/sardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDOfwiQOAmSDUZoinVAIfJMhHTa9A"},
+    {"id": "68eME1yvGB0", "title": "Il transforme des écailles de poisson en bijoux", "thumb": "https://i.ytimg.com/vi/68eME1yvGB0/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLBIb1Vhl2JubBqMJIi8L0fLc8v9tA&usqp=CCk"},
+    {"id": "1H0pjAXmCaI", "title": "Le retour de terrain de Rodrigue, après notre reportage sur la violence", "thumb": "https://i.ytimg.com/vi/1H0pjAXmCaI/oar1.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLB-Jg9li7I6q1ELgwJpvQCGI0VR-Q&usqp=CCk"},
+    {"id": "1_IrFySx3nE", "title": "Innovation martiniquaise", "thumb": "https://i.ytimg.com/vi/1_IrFySx3nE/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLA32POTNOyLGs6fCF8iuSXkIjmjXQ&usqp=CCk"},
+    {"id": "iczrLNWd6kE", "title": "Patate douce, fruit à pain, manioc : les farines du péyi", "thumb": "https://i.ytimg.com/vi/iczrLNWd6kE/oar3.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCGNdrAyuaaE1ZqBmKMgPUB1UXB7Q&usqp=CCk"},
+    {"id": "0RSjYYpiaFw", "title": "Dans quel environnement vivent aujourd’hui nos jeunes ?", "thumb": "https://i.ytimg.com/vi/0RSjYYpiaFw/oar3.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCnXEfAvwu2w0XJkn584RfIVtjn-g&usqp=CCk"},
+    {"id": "3BjzQlsBbKY", "title": "An nou manjé péyi", "lang": "gcf", "thumb": "https://i.ytimg.com/vi/3BjzQlsBbKY/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLC5SJSx0L43ydIOZOWagL0IYcJHQQ&usqp=CCk"},
+    {"id": "81kOcUBeRYk", "title": "Les Kalinagos formaient-ils déjà une nation ?", "thumb": "https://i.ytimg.com/vi/81kOcUBeRYk/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLD7_ejetqCX31o7aRCs0uQoP3uBBA&usqp=CCk"},
+    {"id": "bvvueI1wgHI", "title": "Le témoignage bouleversant d’un père qui a perdu son fils", "thumb": "https://i.ytimg.com/vi/bvvueI1wgHI/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLAoHHjjX6t5I16QRUgb0hcAwqGHfg&usqp=CCk"},
+    {"id": "dD9RnPJOt0U", "title": "Des fèves de cacao au marché Manrina", "thumb": "https://i.ytimg.com/vi/dD9RnPJOt0U/sardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDyGZnok1q6A8OUXro5SoJ5l48DsA"},
+    {"id": "-opnEX8JCyo", "title": "Le message d’Alex Ferdinand à la jeunesse martiniquaise", "thumb": "https://i.ytimg.com/vi/-opnEX8JCyo/oar3.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDpqC_NkEGpCDlJRy1cBG0oHmjJkA&usqp=CCk"},
+    {"id": "mFgRkKOM8-U", "title": "Le monument d’Edmond Mondésir", "thumb": "https://i.ytimg.com/vi/mFgRkKOM8-U/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDm_HvOjTw9rdDLJX2UfPCeU4WBCA&usqp=CCk"},
+    {"id": "gDdo6yJD0sw", "title": "Juliette Smeralda, sociologue, analyse la violence", "thumb": "https://i.ytimg.com/vi/gDdo6yJD0sw/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCpxLHMuzhX0MQ955bkefVMt692GA&usqp=CCk"},
+    {"id": "Zk3ARiKP7xA", "title": "Comment nos jeunes voient-ils leur avenir ?", "thumb": "https://i.ytimg.com/vi/Zk3ARiKP7xA/oar3.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDlTlRgf4Nezh1Z_QdXDs9Gs8Cvdg&usqp=CCk"},
+    {"id": "83Qr1BsbXR4", "title": "La parole aux jeunes face à la violence", "thumb": "https://i.ytimg.com/vi/83Qr1BsbXR4/oar1.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDGAFH9O6VryfSra1VHBWIoMsSWKA&usqp=CCk"}
+  ],
+  "titles": {
+    "IX2j562QMhI": "Aurélie Nella s’exprime concernant la crise du transport",
+    "yLdT4Uuaq-8": "Le député martiniquais s’exprime lors de la crise du transport",
+    "Qa0iFzu3Adg": "Une belle innovation au service des administrés — Cynthia Yerro",
+    "JXPf8PWWsUQ": "Marcellin Nadeau s’exprime…",
+    "uRTiwM3v4lo": "Tension à Bellevue, Fort-de-France",
+    "teHdmH0jmxM": "Mobilisation lycéenne, vendredi 2 octobre"
+  },
+  "collab_refs": ["5THHCZWfSTI", "dBj9_5kgpX8", "8T3H3AI9FZE"]
+}

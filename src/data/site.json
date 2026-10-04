@@ -1,0 +1,39 @@
+{
+  "name": "Relais Populaire",
+  "org": "Relais Populaire Média",
+  "short": "RPM",
+  "url": "https://relaispopulaire.fr",
+  "slogan": "Sé ta nou",
+  "description": "Relais Populaire Média (RPM) est un média communautaire martiniquais : enquêtes de terrain, documentaires et portraits qui donnent la parole aux habitants, en Martinique, dans la Caraïbe et la diaspora.",
+  "email": "contact@relaispopulaire.fr",
+  "youtube": "https://www.youtube.com/@Relaispopulaire",
+  "youtube_subscribe": "https://www.youtube.com/@Relaispopulaire?sub_confirmation=1",
+  "youtube_channel_id": "UCMcIAi8NNDUErAK-3-4K8kA",
+  "uploads_playlist": "UUMcIAi8NNDUErAK-3-4K8kA",
+  "stats": {
+    "videos": 1600
+  },
+  "audience": [
+    {"name": "TikTok", "followers": 70300, "views": 3000000},
+    {"name": "Instagram", "followers": 41400, "views": 4800000},
+    {"name": "Facebook", "followers": 34000},
+    {"name": "YouTube", "followers": 9078, "views": 311000}
+  ],
+  "socials": [
+    {"name": "TikTok", "handle": "@relaispopulaire", "url": "https://www.tiktok.com/@relaispopulaire"},
+    {"name": "Instagram", "handle": "@relaispopulaire", "url": "https://www.instagram.com/relaispopulaire/"}
+  ],
+  "legal": {
+    "publisher": "Relais Populaire Média (RPM)",
+    "declared": false,
+    "form": "Association régie par la loi du 1er juillet 1901",
+    "address": "",
+    "rna": "",
+    "director": "",
+    "host_name": "GitHub, Inc. (service GitHub Pages)",
+    "host_address": "88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis",
+    "host_phone": "+1 877 448 4820",
+    "registrar": "IONOS SARL, 7 place de la Gare, BP 70109, 57201 Sarreguemines Cedex, France"
+  },
+  "updated": "2026-10-04"
+}
