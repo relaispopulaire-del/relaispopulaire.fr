@@ -1,0 +1,106 @@
+# Construit et publie relaispopulaire.fr.
+# - à chaque modification du dépôt ;
+# - toutes les heures : récupère les nouveaux Shorts et vidéos de la chaîne
+#   YouTube, et republie le site seulement s'il y a du nouveau.
+name: Site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.decide.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Identité des commits automatiques
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Retirer l'ancienne version à plat (une seule fois)
+        run: |
+          if [ -f index.html ] && [ -d src ]; then
+            git rm -q --ignore-unmatch .nojekyll 404.html CNAME Inter-OFL.txt apple-touch-icon.png \
+              collaborer.html confidentialite.html contact.html favicon.ico favicon.svg icon-192.png \
+              icon-512.png icon-maskable-512.png index.html inter-var-latin-italic.woff2 \
+              inter-var-latin.woff2 le-media.html logo-512.png main.js mentions-legales.html \
+              og-image.jpg robots.txt site.webmanifest sitemap.xml style.css videos.html
+            git commit -q -m "Nettoyage : le site est maintenant construit à partir des sources"
+            (git pull -q --rebase && git push -q) || echo "::warning::Nettoyage non envoyé, il sera refait au prochain passage."
+          fi
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Outils de construction
+        run: |
+          pip install --quiet -r requirements.txt
+          npm ci --no-audit --no-fund
+
+      - name: Derniers Shorts et vidéos YouTube
+        id: youtube
+        run: python youtube.py
+
+      - name: Enregistrer les nouvelles vidéos
+        if: steps.youtube.outputs.changed == 'true'
+        run: |
+          git add src/data/latest.json
+          git commit -q -m "Nouvelles vidéos YouTube"
+          (git pull -q --rebase && git push -q) || echo "::warning::Données non envoyées, elles seront reprises au prochain passage."
+
+      - name: Publier ?
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ] || [ "${{ steps.youtube.outputs.changed }}" = "true" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "Aucune nouvelle vidéo : le site en ligne reste inchangé."
+          fi
+
+      - name: Construire le site
+        if: steps.decide.outputs.deploy == 'true'
+        run: |
+          python build.py
+          python flat.py _site
+
+      - uses: actions/configure-pages@v6
+        if: steps.decide.outputs.deploy == 'true'
+
+      - uses: actions/upload-pages-artifact@v5
+        if: steps.decide.outputs.deploy == 'true'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Mise en ligne
+        id: deployment
+        uses: actions/deploy-pages@v5
