@@ -42,7 +42,7 @@
     <a class="brand" href="{{ root }}index.html" aria-label="Relais Populaire, retour à l’accueil">{{ logo_horiz_markup }}</a>
     <nav class="nav" aria-label="Navigation principale">
       {% for item in nav %}
-      <a href="{{ root }}{{ item.href }}"{% if item.slug == page.slug %} aria-current="page"{% endif %}>{{ item.label }}</a>
+      <a href="{{ root }}{{ item.href }}"{% if item.slug == 'live' %} class="nav__live"{% endif %}{% if item.slug == page.slug %} aria-current="page"{% endif %}>{{ item.label }}</a>
       {% endfor %}
     </nav>
     <div class="header-actions">
@@ -57,7 +57,7 @@
   <nav aria-label="Navigation mobile">
     <a href="{{ root }}index.html"{% if page.slug == 'accueil' %} aria-current="page"{% endif %}>Accueil {{ icon('arrow') }}</a>
     {% for item in nav %}
-    <a href="{{ root }}{{ item.href }}"{% if item.slug == page.slug %} aria-current="page"{% endif %}>{{ item.label }} {{ icon('arrow') }}</a>
+    <a href="{{ root }}{{ item.href }}"{% if item.slug == 'live' %} class="nav__live"{% endif %}{% if item.slug == page.slug %} aria-current="page"{% endif %}>{% if item.slug == 'live' %}Voir le live{% else %}{{ item.label }}{% endif %} {{ icon('arrow') }}</a>
     {% endfor %}
   </nav>
   <div class="actions">

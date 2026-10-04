@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% from 'partials/macros.html' import icon, scard, follow_grid %}
+{% block content %}
+
+<section class="page-hero">
+  <span class="sphere" aria-hidden="true"></span>
+  <div class="container">
+    <p class="kicker kicker--live">En direct</p>
+    <h1 class="display">Le live.</h1>
+    <p class="lead">Quand Relais Populaire est en direct depuis le terrain, le live s’affiche ici automatiquement. Le reste du temps, tu retrouves notre dernier direct en replay.</p>
+  </div>
+</section>
+
+<section class="section section--tight" id="direct" aria-labelledby="live-title">
+  <div class="container">
+    <h2 class="visually-hidden" id="live-title">Lecteur du live</h2>
+    <div class="embed embed--live" data-reveal>
+      <a class="embed__poster" href="https://www.youtube.com/playlist?list={{ lives_playlist }}" data-embed-playlist="{{ lives_playlist }}" data-embed-title="Live de Relais Populaire" target="_blank" rel="noopener">
+        <span class="sphere" aria-hidden="true"></span>
+        <span class="badge badge--live">Live</span>
+        <span class="embed__title">Regarder le direct.</span>
+        <span class="embed__btn"><span class="play">{{ icon('play') }}</span>Lancer le live</span>
+        <span class="embed__note">Pas de direct en ce moment&#8239;? Le lecteur affiche notre dernier live en replay. Il se charge uniquement quand tu cliques.</span>
+      </a>
+    </div>
+    <div class="live-actions" data-reveal>
+      <a class="btn btn--green" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">{{ icon('youtube') }}Être prévenu du prochain live</a>
+      <a class="btn btn--ghost" href="{{ wa_link('Relais Populaire en direct', site.url ~ '/live.html') }}" data-share="whatsapp" data-share-url="{{ site.url }}/live.html" data-share-title="Relais Populaire en direct" target="_blank" rel="noopener">{{ icon('whatsapp') }}WhatsApp</a>
+      <a class="btn btn--ghost" href="{{ fb_share(site.url ~ '/live.html') }}" data-share="facebook" data-share-url="{{ site.url }}/live.html" data-share-title="Relais Populaire en direct" target="_blank" rel="noopener">{{ icon('share') }}Facebook</a>
+      <a class="btn btn--ghost" href="{{ site.url }}/live.html" data-share="native" data-share-url="{{ site.url }}/live.html" data-share-title="Relais Populaire en direct">{{ icon('share') }}Autres</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="live-reseaux-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Sur les réseaux</p>
+        <h2 class="section-title" id="live-reseaux-title">Ne rate aucun direct.</h2>
+      </div>
+      <p class="lead">Abonne-toi à nos comptes pour recevoir une alerte dès qu’on passe en live.</p>
+    </div>
+    {{ follow_grid(site.url ~ '/live.html', 'Relais Populaire en direct', 'Envoie le live à tes proches') }}
+  </div>
+</section>
+
+{% if shorts %}
+<section class="section section--tight" aria-labelledby="live-shorts-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker kicker--live">L’actu en Shorts</p>
+        <h2 class="section-title" id="live-shorts-title">En attendant le prochain live</h2>
+      </div>
+      <a class="link-arrow" href="videos.html#shorts">Tous les Shorts {{ icon('arrow') }}</a>
+    </div>
+    <ul class="shorts-grid" aria-label="Derniers Shorts publiés">
+      {% for s in shorts[:6] %}
+      <li data-reveal>{{ scard(s, dated=true) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
