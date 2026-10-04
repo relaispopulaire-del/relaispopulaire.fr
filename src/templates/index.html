@@ -132,21 +132,53 @@
     <ul class="stats">
       <li class="stat" data-reveal>
         <span class="stat__num" data-count="{{ stats.followers_floor }}" data-suffix="+">{{ stats.followers_label }}+</span>
-        <span class="stat__label">abonnés cumulés sur TikTok, Instagram, Facebook et YouTube.</span>
+        <span class="stat__label">abonnés cumulés sur {{ stats.networks_label }}.</span>
         <ul class="stat__split" aria-label="Abonnés par réseau">
-          {% for name, value in stats.followers %}<li>{{ name }} <strong>{{ value }}</strong></li>{% endfor %}
+          {% for n in stats.followers %}<li>{% if n.url %}<a href="{{ n.url }}" target="_blank" rel="noopener">{{ n.name }} <strong>{{ n.value }}</strong></a>{% else %}<span>{{ n.name }} <strong>{{ n.value }}</strong></span>{% endif %}</li>{% endfor %}
         </ul>
       </li>
       <li class="stat" data-reveal>
         <span class="stat__num" data-count="{{ stats.views_m }}" data-decimals="1" data-suffix="&#8239;M">{{ stats.views_label }}&#8239;M</span>
         <span class="stat__label">de vues sur Instagram, TikTok et YouTube.</span>
         <ul class="stat__split" aria-label="Vues par réseau">
-          {% for name, value in stats.views %}<li>{{ name }} <strong>{{ value }}</strong></li>{% endfor %}
+          {% for n in stats.views %}<li>{% if n.url %}<a href="{{ n.url }}" target="_blank" rel="noopener">{{ n.name }} <strong>{{ n.value }}</strong></a>{% else %}<span>{{ n.name }} <strong>{{ n.value }}</strong></span>{% endif %}</li>{% endfor %}
         </ul>
       </li>
       <li class="stat" data-reveal>
         <span class="stat__num" data-count="{{ site.stats.videos }}" data-suffix="+">1&#8239;600+</span>
         <span class="stat__label">vidéos publiées&#8239;: actu en formats courts, reportages, interviews et enquêtes.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{# ================= SUIS-NOUS SUR LES RÉSEAUX ================= #}
+<section class="section section--tight" id="reseaux" aria-labelledby="reseaux-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="kicker">Sur les réseaux</p>
+        <h2 class="section-title" id="reseaux-title">Suis-nous partout.</h2>
+      </div>
+      <p class="lead">L’actu en direct sur {{ stats.follow_label }}. Choisis ton réseau, et partage nos vidéos autour de toi.</p>
+    </div>
+    <ul class="follow-grid">
+      {% for s in follow %}
+      <li data-reveal>
+        <a class="follow" href="{{ s.link }}" target="_blank" rel="noopener">
+          <span class="follow__name">{{ s.name }}</span>
+          <span class="follow__handle">{{ s.handle }}</span>
+          {% if s.followers_label %}<span class="follow__count"><strong>{{ s.followers_label }}</strong> abonnés</span>{% endif %}
+          <span class="follow__cta">{{ s.cta }} {{ icon('arrow-up') }}</span>
+        </a>
+      </li>
+      {% endfor %}
+      <li data-reveal>
+        <a class="follow follow--share" href="{{ wa_link('Relais Populaire, le média qui raconte la Martinique', site.url) }}" data-share="whatsapp" data-share-url="{{ site.url }}" data-share-title="Relais Populaire, le média qui raconte la Martinique" target="_blank" rel="noopener">
+          <span class="follow__name">WhatsApp</span>
+          <span class="follow__handle">Envoie le site à tes proches</span>
+          <span class="follow__cta">Partager {{ icon('arrow') }}</span>
+        </a>
       </li>
     </ul>
   </div>
@@ -177,7 +209,8 @@
           <p>{% if main.blurb %}{{ main.blurb }}{% else %}{{ main.cat_label }} · publiée le <time datetime="{{ main.published }}">{{ main.date_label }}</time>.{% endif %}</p>
           <div class="actions">
             <a class="btn btn--primary" href="{{ main.url }}" data-yt="{{ main.id }}" data-title="{{ main.title }}">{{ icon('play') }}Regarder</a>
-            <a class="btn btn--ghost" href="{{ wa_link(main.title ~ ' — Relais Populaire', main.url) }}" data-share="whatsapp" data-share-url="{{ main.url }}" data-share-title="{{ main.title }}" target="_blank" rel="noopener">{{ icon('whatsapp') }}Partager</a>
+            <a class="btn btn--ghost" href="{{ wa_link(main.title ~ ' — Relais Populaire', main.url) }}" data-share="whatsapp" data-share-url="{{ main.url }}" data-share-title="{{ main.title }}" target="_blank" rel="noopener">{{ icon('whatsapp') }}WhatsApp</a>
+            <a class="btn btn--ghost" href="{{ fb_share(main.url) }}" data-share="facebook" data-share-url="{{ main.url }}" data-share-title="{{ main.title }}" target="_blank" rel="noopener">{{ icon('share') }}Facebook</a>
           </div>
         </div>
       </article>
@@ -233,11 +266,11 @@
     </div>
     <ul class="cards">
       <li data-reveal>
-        <a class="card" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">
-          <span class="card__icon">{{ icon('youtube') }}</span>
-          <h3>S’abonner</h3>
-          <p>Abonne-toi et ne rate aucune actu ni aucune enquête.</p>
-          <span class="card__cta">Sur YouTube {{ icon('arrow-up') }}</span>
+        <a class="card" href="#reseaux">
+          <span class="card__icon">{{ icon('users') }}</span>
+          <h3>Nous suivre</h3>
+          <p>{{ stats.follow_label }}&#8239;: choisis ton réseau et ne rate aucune actu.</p>
+          <span class="card__cta">Nos réseaux {{ icon('arrow') }}</span>
         </a>
       </li>
       <li data-reveal>

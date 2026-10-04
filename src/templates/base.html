@@ -64,6 +64,9 @@
     <a class="btn btn--green" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">{{ icon('youtube') }}S’abonner</a>
     <a class="btn btn--ghost" href="{{ root }}contact.html?objet=sujet">Proposer un sujet</a>
   </div>
+  <ul class="mobile-menu__social" aria-label="Nos réseaux">
+    {% for s in follow %}<li><a href="{{ s.link }}" target="_blank" rel="noopener">{{ s.name }}</a></li>{% endfor %}
+  </ul>
 </div>
 
 <main id="contenu">
@@ -96,8 +99,7 @@
       <div class="footer-col">
         <h2>Suivre</h2>
         <ul>
-          <li><a href="{{ site.youtube }}" target="_blank" rel="noopener">YouTube @Relaispopulaire</a></li>
-          {% for s in site.socials %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }} {{ s.handle }}</a></li>{% endfor %}
+          {% for s in follow %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }} {{ s.handle }}</a></li>{% endfor %}
           <li><a href="{{ site.youtube }}/shorts" target="_blank" rel="noopener">Nos Shorts</a></li>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
@@ -120,8 +122,10 @@
   <div class="player__bar">
     <p class="player__title" data-player-title></p>
     <div class="player__actions">
-      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-share data-share="whatsapp" target="_blank" rel="noopener">{{ icon('whatsapp') }}Partager</a>
-      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-link target="_blank" rel="noopener">{{ icon('youtube') }}Ouvrir sur YouTube</a>
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-share data-share="whatsapp" target="_blank" rel="noopener">{{ icon('whatsapp') }}WhatsApp</a>
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-share data-share="facebook" target="_blank" rel="noopener">{{ icon('share') }}Facebook</a>
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-share data-share="native" target="_blank" rel="noopener" title="Partager dans une autre application ou copier le lien">{{ icon('share') }}Autres</a>
+      <a class="btn btn--ghost btn--sm" href="{{ site.youtube }}" data-player-link target="_blank" rel="noopener">{{ icon('youtube') }}YouTube</a>
     </div>
   </div>
 </dialog>
