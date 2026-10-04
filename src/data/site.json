@@ -20,8 +20,10 @@
     {"name": "YouTube", "followers": 9078, "views": 311000}
   ],
   "socials": [
-    {"name": "TikTok", "handle": "@relaispopulaire", "url": "https://www.tiktok.com/@relaispopulaire"},
-    {"name": "Instagram", "handle": "@relaispopulaire", "url": "https://www.instagram.com/relaispopulaire/"}
+    {"name": "TikTok", "handle": "@relaispopulaire", "url": "https://www.tiktok.com/@relaispopulaire", "cta": "Suivre"},
+    {"name": "Instagram", "handle": "@relaispopulaire", "url": "https://www.instagram.com/relaispopulaire/", "cta": "Suivre"},
+    {"name": "Facebook", "handle": "Relais Populaire", "url": "", "cta": "Suivre"},
+    {"name": "YouTube", "handle": "@Relaispopulaire", "url": "https://www.youtube.com/@Relaispopulaire", "follow_url": "https://www.youtube.com/@Relaispopulaire?sub_confirmation=1", "cta": "S’abonner"}
   ],
   "legal": {
     "publisher": "Relais Populaire Média (RPM)",
