@@ -205,7 +205,7 @@ PAGES = [
     {
         "tpl": "le-media.html", "out": "le-media.html", "slug": "le-media", "path": "/le-media.html",
         "title": "Le média, notre démarche et notre charte — Relais Populaire",
-        "description": "Relais Populaire Média, média communautaire martiniquais : qui nous sommes, notre démarche de terrain et notre charte éditoriale.",
+        "description": "Relais Populaire Média, média indépendant martiniquais : qui nous sommes, notre démarche de terrain et notre charte éditoriale.",
         "priority": "0.8",
     },
     {
@@ -379,7 +379,7 @@ def build():
     manifest = {
         "name": "Relais Populaire",
         "short_name": "Relais Populaire",
-        "description": "Le média communautaire qui raconte la Martinique.",
+        "description": "Le média indépendant qui raconte la Martinique.",
         "lang": "fr",
         "start_url": "/",
         "scope": "/",
