@@ -1,0 +1,66 @@
+{# ---------- Icône ---------- #}
+{% macro icon(name, cls='') -%}
+<svg class="icon {{ cls }}" aria-hidden="true" focusable="false"><use href="#i-{{ name }}"></use></svg>
+{%- endmacro %}
+
+{# ---------- Carte vidéo (titre en surimpression) ---------- #}
+{% macro vcard(v, sizes='(max-width: 920px) 72vw, 27vw', hidden=false, eager=false) -%}
+<a class="vcard" href="{{ v.url }}" data-yt="{{ v.id }}" data-title="{{ v.title }}" data-thumb{% if hidden %} tabindex="-1"{% endif %}>
+  <img src="{{ v.thumb_sd }}" srcset="{{ v.srcset }}" sizes="{{ sizes }}" alt="" width="640" height="360" {% if not eager %}loading="lazy" {% endif %}decoding="async" data-yt-thumb data-fallback="{{ v.thumb_hq }}">
+  <span class="vcard__play">{{ icon('play') }}</span>
+  <span class="vcard__meta"><span class="vcard__title">{{ v.title }}</span></span>
+</a>
+{%- endmacro %}
+
+{# ---------- Carte Short (vertical, miniature recadrée en 9:16) ---------- #}
+{% macro scard(s, hidden=false, dated=false, sizes='(max-width: 700px) 44vw, 210px') -%}
+<a class="vcard vcard--short" href="{{ s.url }}" data-yt="{{ s.id }}" data-short="1" data-title="{{ s.title }}" data-thumb{% if hidden %} tabindex="-1"{% endif %}>
+  <img src="{{ s.thumb_sd }}" srcset="{{ s.srcset }}" sizes="{{ sizes }}" alt="" width="270" height="480" loading="lazy" decoding="async" data-yt-thumb data-fallback="{{ s.thumb_hq }}">
+  <span class="vcard__play">{{ icon('play') }}</span>
+  {% if dated and s.published %}<time class="vcard__date" datetime="{{ s.published }}" data-rel>{{ s.date_label }}</time>{% endif %}
+  <span class="vcard__meta"><span class="vcard__title"{% if s.lang %} lang="{{ s.lang }}"{% endif %}>{{ s.title }}</span></span>
+</a>
+{%- endmacro %}
+
+{# ---------- Élément de grille (titre sous l'image) ---------- #}
+{% macro vitem(v, dated=false) -%}
+<a class="vitem" href="{{ v.url }}" data-yt="{{ v.id }}" data-title="{{ v.title }}">
+  <span class="vcard" data-thumb>
+    <img src="{{ v.thumb_sd }}" srcset="{{ v.srcset }}" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 400px" alt="" width="640" height="360" loading="lazy" decoding="async" data-yt-thumb data-fallback="{{ v.thumb_hq }}">
+    <span class="vcard__play">{{ icon('play') }}</span>
+  </span>
+  {% if dated and v.published %}<span class="vitem__cat"><time datetime="{{ v.published }}">{{ v.date_label }}</time> · {{ v.cat_label }}</span>{% else %}<span class="vitem__cat">{{ v.cat_label }}</span>{% endif %}
+  <span class="vitem__title">{{ v.title }}</span>
+</a>
+{%- endmacro %}
+
+{# ---------- Miniature compacte ---------- #}
+{% macro mini(v) -%}
+<a class="mini" href="{{ v.url }}" data-yt="{{ v.id }}" data-title="{{ v.title }}">
+  <span class="vcard" data-thumb>
+    <img src="{{ v.thumb_hq }}" srcset="{{ v.srcset }}" sizes="(max-width: 860px) 44vw, 220px" alt="" width="480" height="270" loading="lazy" decoding="async" data-yt-thumb data-fallback="{{ v.thumb_hq }}">
+    <span class="vcard__play">{{ icon('play') }}</span>
+  </span>
+  <span>
+    <span class="mini__cat">{% if v.published %}<time datetime="{{ v.published }}">{{ v.date_label }}</time> · {% endif %}{{ v.cat_label }}</span>
+    <span class="mini__title">{{ v.title }}</span>
+  </span>
+</a>
+{%- endmacro %}
+
+{# ---------- Bandeau final ---------- #}
+{% macro cta_band(title, text, primary_href, primary_label, secondary_href=None, secondary_label=None, external=false) -%}
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band" data-reveal>
+      <span class="sphere" aria-hidden="true"></span>
+      <h2>{{ title }}</h2>
+      <p>{{ text }}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="{{ primary_href }}"{% if external %} target="_blank" rel="noopener"{% endif %}>{{ primary_label }}</a>
+        {% if secondary_href %}<a class="btn btn--ghost" href="{{ secondary_href }}"{% if secondary_href.startswith('http') %} target="_blank" rel="noopener"{% endif %}>{{ secondary_label }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endmacro %}
