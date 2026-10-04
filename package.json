@@ -1,0 +1,10 @@
+{
+  "name": "relaispopulaire-site",
+  "private": true,
+  "description": "Outils de construction du site relaispopulaire.fr (minification CSS et JS)",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "lightningcss-cli": "1.33.0"
+  }
+}
