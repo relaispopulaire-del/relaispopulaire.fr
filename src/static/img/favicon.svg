@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Relais Populaire"><defs><radialGradient id="rpmm-g" cx="0.72" cy="0.33" r="0.80" fx="0.72" fy="0.33">
+      <stop offset="0" stop-color="#2E9B41"/><stop offset=".12" stop-color="#2A913C"/><stop offset=".25" stop-color="#1F8134"/>
+      <stop offset=".4" stop-color="#16692B"/><stop offset=".55" stop-color="#115A27"/><stop offset=".7" stop-color="#0C4A21"/>
+      <stop offset=".85" stop-color="#083B1B"/><stop offset="1" stop-color="#052A14"/></radialGradient>
+    <linearGradient id="rpmm-rim" x1="0.85" y1="0.1" x2="0.15" y2="0.9">
+      <stop offset="0" stop-color="#3FAE55" stop-opacity=".9"/><stop offset=".45" stop-color="#1E7A33" stop-opacity="0"/><stop offset="1" stop-color="#02150A" stop-opacity=".9"/></linearGradient></defs><circle cx="50.0" cy="50.0" r="49.0" fill="url(#rpmm-g)"/><circle cx="50.0" cy="50.0" r="48.4" fill="none" stroke="url(#rpmm-rim)" stroke-width="1.18"/></svg>
