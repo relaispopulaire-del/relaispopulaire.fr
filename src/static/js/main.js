@@ -263,6 +263,95 @@
     });
   });
 
+  /* Serveur de live RPM : dès qu'un direct commence, le site le met au premier plan.
+     - accueil : le lecteur et le chat apparaissent tout en haut de la page ;
+     - toutes les pages : pastille rouge « En direct » dans l'en-tête ;
+     - page Live : notre lecteur (avec le chat) remplace celui de YouTube.
+     Le serveur est interrogé toutes les 20 s (60 s si l'onglet est en arrière-plan). */
+  var rpmUrl = (doc.getAttribute('data-rpm-server') || '').replace(/\/$/, '');
+  if (rpmUrl && !isLocalFile && !isPreview && window.fetch) {
+    var livePill = $('[data-live-pill]');
+    var liveNow = $('[data-live-now]');
+    var liveFrame = $('[data-live-frame]');
+    var liveTitle = $('[data-live-title]');
+    var liveViewers = $('[data-live-viewers]');
+    var liveBox = $('[data-live-box]');
+    var isLive = false;
+    var liveTimer = null;
+    var offSince = 0;
+
+    var makeFrame = function () {
+      var f = document.createElement('iframe');
+      f.src = rpmUrl + '/embed?chat=1';
+      f.title = 'Relais Populaire en direct';
+      f.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      f.setAttribute('allowfullscreen', '');
+      return f;
+    };
+    var viewersText = function (n) {
+      return n > 0 ? n.toLocaleString('fr-FR') + (n > 1 ? ' spectateurs' : ' spectateur') : '';
+    };
+    var setLive = function (on, s) {
+      if (s && liveTitle && s.title) liveTitle.textContent = s.title;
+      if (liveViewers) {
+        var t = on && s ? viewersText(s.viewers || 0) : '';
+        liveViewers.textContent = t;
+        liveViewers.hidden = !t;
+      }
+      if (on === isLive) return;
+      isLive = on;
+      doc.classList.toggle('is-live-now', on);
+      if (livePill) livePill.hidden = !on;
+      if (liveNow && liveFrame) {
+        if (on) {
+          liveFrame.textContent = '';
+          liveFrame.appendChild(makeFrame());
+          liveNow.hidden = false;
+        } else {
+          liveNow.hidden = true;
+          liveFrame.textContent = ''; // coupe la vidéo
+        }
+      }
+      if (on && liveBox && !liveBox.querySelector('iframe[src^="' + rpmUrl + '"]')) {
+        liveBox.textContent = '';
+        liveBox.appendChild(makeFrame());
+        liveBox.classList.add('embed--rpm');
+      }
+    };
+    var schedule = function () {
+      clearTimeout(liveTimer);
+      liveTimer = setTimeout(checkLive, document.hidden ? 60000 : 20000);
+    };
+    var checkLive = function () {
+      fetch(rpmUrl + '/api/status', { cache: 'no-store', credentials: 'omit' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (s) {
+          offSince = 0;
+          // « live » reste vrai pendant 30 s si la YoloBox coupe (4G) : un « non » du serveur veut dire fin du direct
+          setLive(Boolean(s && s.live), s);
+        })
+        .catch(function () {
+          // Serveur injoignable : on attend un peu avant de retirer le direct (micro-coupure possible)
+          if (!isLive) return;
+          if (!offSince) offSince = Date.now();
+          if (Date.now() - offSince > 45000) setLive(false, null);
+        })
+        .then(schedule, schedule);
+    };
+    // Le lecteur intégré prévient le site du nombre de spectateurs et de la fin du direct
+    window.addEventListener('message', function (e) {
+      if (e.origin !== rpmUrl || !e.data || e.data.type !== 'rpm-live') return;
+      if (liveViewers && isLive) {
+        var t = viewersText(e.data.viewers || 0);
+        liveViewers.textContent = t;
+        liveViewers.hidden = !t;
+      }
+      if (!e.data.live && isLive) checkLive();
+    });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) checkLive(); });
+    checkLive();
+  }
+
   /* ------------------------------------------------------------------
      7. Manifeste : les mots s'allument au fil du défilement
      ------------------------------------------------------------------ */
