@@ -9,6 +9,7 @@ Usage : python3 build.py
 import base64
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -24,6 +25,10 @@ DIST = ROOT / "dist"
 BRAND = SRC / "brand"
 
 site = json.loads((SRC / "data" / "site.json").read_text(encoding="utf-8"))
+# Serveur de live RPM (ex. https://live.relaispopulaire.fr). Vide = désactivé : la page Live garde YouTube.
+# Pendant un direct, le site met alors le lecteur et le chat au premier plan (accueil, pastille « En direct »).
+# RPM_LIVE_URL permet de tester avec un autre serveur sans toucher à site.json.
+RPM_LIVE = os.environ.get("RPM_LIVE_URL", site.get("rpm_live", "")).strip().rstrip("/")
 vdata = json.loads((SRC / "data" / "videos.json").read_text(encoding="utf-8"))
 latest = json.loads((SRC / "data" / "latest.json").read_text(encoding="utf-8"))
 
@@ -376,6 +381,7 @@ def build():
         stats=STATS,
         follow=FOLLOW,
         lives_playlist="UULV" + site["youtube_channel_id"][2:],
+        rpm_live=RPM_LIVE,
         fb_share=fb_share,
         collab_refs=pick(vdata["collab_refs"]),
         V=VIDEOS,
@@ -434,6 +440,8 @@ def build():
         shutil.move(str(DIST / "assets/img/favicon.ico"), DIST / "favicon.ico")
 
     htaccess = (SRC / "htaccess.tpl").read_text(encoding="utf-8").replace("{{HEAD_SCRIPT_HASH}}", HEAD_SCRIPT_HASH)
+    if RPM_LIVE:  # autorise le lecteur et le statut du serveur de live
+        htaccess = htaccess.replace("frame-src ", f"frame-src {RPM_LIVE} ", 1).replace("connect-src 'self'", f"connect-src 'self' {RPM_LIVE}", 1)
     (DIST / ".htaccess").write_text(htaccess, encoding="utf-8")
 
     # Équivalents pour un hébergement Netlify (ignorés par Apache)
