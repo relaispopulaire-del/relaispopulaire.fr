@@ -1807,3 +1807,74 @@ a.card:hover .card__cta .icon { transform: translateX(4px); }
 }
 .embed--live { box-shadow: 0 0 0 1px rgba(255, 77, 61, 0.18), 0 40px 120px -40px rgba(255, 77, 61, 0.25); }
 .live-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.embed--rpm { aspect-ratio: 16 / 9; background: #000; }
+@media (min-width: 1000px) {
+  .embed--rpm { aspect-ratio: 2 / 1; } /* place pour la vidéo et le chat côte à côte */
+}
+@media (max-width: 720px) {
+  .embed--rpm { aspect-ratio: auto; height: min(82svh, 720px); }
+}
+
+/* Pastille « En direct » dans l'en-tête, pendant un live */
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #ff4d3d;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.live-pill::before {
+  content: "";
+  flex: none;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: live-pulse 2s var(--ease) infinite;
+}
+.live-pill[hidden] { display: none; }
+[data-motion="off"] .live-pill::before { animation: none; }
+.live-pill:hover { background: #ff6656; }
+/* Téléphone : pastille compacte, et le bouton des animations laisse sa place pendant le live
+   (le bouton du menu doit toujours rester visible) */
+@media (max-width: 560px) {
+  .live-pill { height: 30px; padding: 0 10px; gap: 6px; font-size: 0.64rem; letter-spacing: 0.06em; }
+  .is-live-now .motion-toggle { display: none; }
+}
+@media (max-width: 430px) {
+  .live-pill { font-size: 0; gap: 0; letter-spacing: 0; }
+  .live-pill::after { content: "Live"; font-size: 0.64rem; letter-spacing: 0.06em; margin-left: 6px; }
+}
+@media (max-width: 370px) {
+  .live-pill { width: 30px; padding: 0; justify-content: center; }
+  .live-pill::after { content: none; }
+}
+/* Très petits écrans : logo un peu réduit pour que le bouton du menu reste visible */
+@media (max-width: 340px) {
+  .brand svg { height: 22px; }
+}
+
+/* Accueil : le direct au premier plan, tout en haut de la page */
+.live-now {
+  position: relative;
+  padding: calc(var(--header-h) + env(safe-area-inset-top, 0px) + clamp(18px, 3vw, 34px)) 0 clamp(28px, 5vw, 56px);
+  background: radial-gradient(70% 60% at 50% 0%, rgba(255, 77, 61, 0.14), transparent 70%), var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.live-now[hidden] { display: none; }
+.live-now__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 16px; }
+.live-now__head .badge { margin: 0; }
+.live-now__title { margin: 0; font-size: var(--fs-h3); font-weight: 760; letter-spacing: -0.02em; }
+.live-now__viewers { color: var(--text-2); font-size: 0.92rem; }
+.live-now .live-actions { margin-top: 16px; }
+/* Pendant un live, le grand titre d'accueil passe sous le direct : on retire son espace réservé à l'en-tête */
+.is-live-now .hero { padding-top: clamp(32px, 6vw, 72px); }
+
