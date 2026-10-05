@@ -2,6 +2,25 @@
 {% from 'partials/macros.html' import icon, vcard, scard, mini, follow_grid %}
 {% block content %}
 
+{% if rpm_live %}
+{# ================= EN DIRECT : notre lecteur et le chat, au premier plan pendant un live ================= #}
+<section class="live-now" id="en-direct" data-live-now hidden aria-labelledby="live-now-title">
+  <div class="container">
+    <div class="live-now__head">
+      <span class="badge badge--live">En direct</span>
+      <h2 class="live-now__title" id="live-now-title" data-live-title>Relais Populaire en direct</h2>
+      <span class="live-now__viewers" data-live-viewers hidden></span>
+    </div>
+    <div class="embed embed--live embed--rpm live-now__player" data-live-frame></div>
+    <div class="live-actions">
+      <a class="btn btn--ghost" href="{{ wa_link('Relais Populaire est en direct !', site.url ~ '/#en-direct') }}" data-share="whatsapp" data-share-url="{{ site.url }}/#en-direct" data-share-title="Relais Populaire est en direct" target="_blank" rel="noopener">{{ icon('whatsapp') }}Partager sur WhatsApp</a>
+      <a class="btn btn--ghost" href="{{ fb_share(site.url ~ '/#en-direct') }}" data-share="facebook" data-share-url="{{ site.url }}/#en-direct" data-share-title="Relais Populaire est en direct" target="_blank" rel="noopener">{{ icon('share') }}Facebook</a>
+      <a class="btn btn--ghost" href="{{ site.url }}/#en-direct" data-share="native" data-share-url="{{ site.url }}/#en-direct" data-share-title="Relais Populaire est en direct">{{ icon('share') }}Autres</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {# ================= HÉROS : sphère 3D + derniers Shorts en orbite ================= #}
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__glow" aria-hidden="true"></div>

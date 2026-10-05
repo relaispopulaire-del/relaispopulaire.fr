@@ -1,6 +1,6 @@
 {% from 'partials/macros.html' import icon %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr"{% if rpm_live %} data-rpm-server="{{ rpm_live }}"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -46,6 +46,7 @@
       {% endfor %}
     </nav>
     <div class="header-actions">
+      {% if rpm_live %}<a class="live-pill" href="{{ root }}{% if page.slug == 'accueil' %}#en-direct{% else %}index.html#en-direct{% endif %}" data-live-pill aria-label="Relais Populaire est en direct : regarder" hidden>En direct</a>{% endif %}
       <button class="icon-btn motion-toggle" type="button" data-motion-toggle aria-label="Mettre les animations en pause" title="Mettre les animations en pause">{{ icon('pause', 'icon-pause') }}{{ icon('play', 'icon-play') }}</button>
       <a class="btn btn--green btn--sm" href="{{ site.youtube_subscribe }}" target="_blank" rel="noopener">{{ icon('youtube') }}S’abonner</a>
       <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Ouvrir le menu"><span class="bars" aria-hidden="true"></span></button>

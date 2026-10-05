@@ -15,6 +15,7 @@
       <li><a href="#responsable">Responsable</a></li>
       <li><a href="#cookies">Cookies et traceurs</a></li>
       <li><a href="#videos">Vidéos YouTube</a></li>
+      {% if rpm_live %}<li><a href="#direct">Lecteur du direct</a></li>{% endif %}
       <li><a href="#contact">Messages</a></li>
       <li><a href="#journaux">Hébergement</a></li>
       <li><a href="#droits">Vos droits</a></li>
@@ -30,6 +31,14 @@
       <h2 id="videos">Vidéos YouTube</h2>
       <p>Les miniatures des vidéos sont affichées depuis les serveurs de YouTube (Google), qui reçoivent à cette occasion l’adresse IP de votre appareil, comme pour toute image hébergée en ligne.</p>
       <p>Les lecteurs vidéo, eux, ne se chargent <strong>que lorsque vous cliquez</strong> sur une vidéo. Ils utilisent le mode «&#8239;confidentialité avancée&#8239;» de YouTube (youtube-nocookie.com). Dès que vous lancez une vidéo, la <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">politique de confidentialité de Google</a> s’applique.</p>
+
+      {% if rpm_live %}
+      <h2 id="direct">Lecteur du direct</h2>
+      <p>Pendant un direct, la page d’accueil et la page Live affichent notre propre lecteur, hébergé par Relais Populaire sur son propre serveur ({{ rpm_live }}), relié à Internet par le service Tailscale. Il ne dépose aucun cookie. Pour compter les spectateurs, il envoie pendant la lecture un identifiant tiré au hasard à chaque visite, qui n’est pas conservé après le direct.</p>
+      <p>Pour savoir si un direct est en cours, votre navigateur interroge régulièrement ce serveur, sans cookie ni identifiant&#8239;: comme pour tout site, il reçoit à cette occasion l’adresse IP de votre appareil, qui n’est pas enregistrée.</p>
+      <p><strong>Partage entre spectateurs.</strong> Pour soulager notre connexion, le lecteur peut échanger des morceaux de vidéo directement avec d’autres spectateurs du même direct (technique pair-à-pair, comme PeerTube). Les spectateurs connectés entre eux voient alors l’adresse IP les uns des autres. Pour se trouver, les lecteurs interrogent un serveur de mise en relation (STUN) de Cloudflare, qui reçoit à cette occasion leur adresse IP. Chaque morceau reçu est vérifié avant d’être affiché. Sur téléphone, le lecteur n’envoie rien par défaut, pour ne pas consommer votre forfait. Vous pouvez désactiver le partage à tout moment sous le lecteur&#8239;: la vidéo vient alors uniquement de notre serveur.</p>
+      <p><strong>Chat.</strong> Les messages sont visibles par les personnes qui regardent le direct. Ils restent en mémoire pendant le direct (les 60 derniers au plus) et ne sont pas enregistrés ensuite. Votre pseudo, votre choix de partage et un identifiant d’appareil tiré au hasard (utile à la modération) sont mémorisés dans votre navigateur. En cas de bannissement, cet identifiant, le pseudo et une empreinte non réversible de l’adresse IP sont conservés jusqu’au débannissement&#8239;; l’adresse IP elle-même n’est jamais enregistrée.</p>
+      {% endif %}
 
       <h2 id="contact">Messages que vous nous envoyez</h2>
       <p>Le formulaire de contact ne transmet rien à ce site&#8239;: il ouvre simplement votre messagerie avec votre message prêt à partir. Les e-mails que nous recevons servent uniquement à vous répondre. Ils ne sont ni vendus, ni cédés, et sont supprimés lorsqu’ils ne sont plus utiles à l’échange, au plus tard trois ans après le dernier contact.</p>

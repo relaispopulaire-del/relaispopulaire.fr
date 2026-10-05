@@ -14,7 +14,7 @@
 <section class="section section--tight" id="direct" aria-labelledby="live-title">
   <div class="container">
     <h2 class="visually-hidden" id="live-title">Lecteur du live</h2>
-    <div class="embed embed--live" data-reveal>
+    <div class="embed embed--live" data-reveal{% if rpm_live %} data-live-box{% endif %}>
       <a class="embed__poster" href="https://www.youtube.com/playlist?list={{ lives_playlist }}" data-embed-playlist="{{ lives_playlist }}" data-embed-title="Live de Relais Populaire" target="_blank" rel="noopener">
         <span class="sphere" aria-hidden="true"></span>
         <span class="badge badge--live">Live</span>
