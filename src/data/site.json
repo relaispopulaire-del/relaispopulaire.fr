@@ -10,6 +10,7 @@
   "youtube_subscribe": "https://www.youtube.com/@Relaispopulaire?sub_confirmation=1",
   "youtube_channel_id": "UCMcIAi8NNDUErAK-3-4K8kA",
   "uploads_playlist": "UUMcIAi8NNDUErAK-3-4K8kA",
+  "rpm_live": "https://rpm-live.tail727a72.ts.net",
   "stats": {
     "videos": 1600
   },
@@ -37,5 +38,5 @@
     "host_phone": "+1 877 448 4820",
     "registrar": "IONOS SARL, 7 place de la Gare, BP 70109, 57201 Sarreguemines Cedex, France"
   },
-  "updated": "2026-10-04"
+  "updated": "2026-10-05"
 }
