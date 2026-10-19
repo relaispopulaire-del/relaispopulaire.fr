@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gestion des galeries · Relais Populaire</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#050605">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Inter";src:url("/inter-var-latin.woff2") format("woff2");font-weight:100 900;font-display:swap}
+/* Espace d’administration : une colonne de travail, en-tête fixe, cartes pour les galeries */
+:root{--bg:#050605;--bg-2:#0b0e0c;--bg-3:#121613;--line:rgba(255,255,255,.1);--line-2:rgba(255,255,255,.18);
+--text:#f3f5f2;--text-2:#b6bdb7;--text-3:#8a938c;--green:#2fa346;--green-2:#23913a;--red:#e5484d;--red-bg:rgba(229,72,77,.12);--amber:#f5a524;
+--font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--gutter:clamp(16px,3.4vw,40px);color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
+.wrap{width:min(100% - 2*var(--gutter),1200px);margin-inline:auto}
+header.top{position:sticky;top:0;z-index:20;background:rgba(5,6,5,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+.brand{font-weight:800;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand::before{content:"";width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 68% 32%,#47bb5e,#1f8134 45%,#0b4420 100%);box-shadow:0 0 12px rgba(47,163,70,.6)}
+.brand small{font-weight:600;color:var(--text-3);letter-spacing:0}
+.user{display:flex;align-items:center;gap:10px;color:var(--text-3);font-size:.9rem;min-width:0}
+.brand{white-space:nowrap}
+@media (max-width:560px){#userName,.brand small{display:none}}
+#globalMsg{margin-bottom:16px}
+main{padding:clamp(24px,4vw,48px) 0 80px}
+h1{font-size:clamp(1.7rem,3.6vw,2.6rem);line-height:1.05;letter-spacing:-.035em;margin:0 0 8px;text-wrap:balance}
+h2{font-size:1.15rem;margin:0 0 12px;letter-spacing:-.01em}
+.muted{color:var(--text-2)}.small{font-size:.88rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:none;font-size:.93rem;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn--green{background:var(--green-2);border-color:var(--green-2);color:#fff}
+.btn--green:hover{background:var(--green);border-color:var(--green)}
+.btn--red{border-color:rgba(229,72,77,.5);color:#ff8589}
+.btn--red:hover{background:var(--red-bg);border-color:var(--red)}
+.btn--sm{min-height:34px;padding:0 13px;font-size:.85rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.card{border:1px solid var(--line);border-radius:16px;background:var(--bg-2);padding:clamp(16px,2.4vw,24px)}
+.stack{display:grid;gap:18px}
+label{display:grid;gap:6px;font-size:.88rem;font-weight:600;color:var(--text-2)}
+input[type=text],input[type=password],input[type=date],textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line-2);background:var(--bg-3);color:var(--text);font-weight:400}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--green)}
+.form{display:grid;gap:14px;max-width:640px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+ol.steps{margin:0;padding-left:1.2em;display:grid;gap:6px;color:var(--text-2)}
+ol.steps b{color:var(--text)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:var(--bg-3);padding:2px 6px;border-radius:6px}
+.msg{padding:12px 14px;border-radius:12px;font-size:.92rem}
+.msg--err{background:var(--red-bg);color:#ffb3b5;border:1px solid rgba(229,72,77,.35)}
+.msg--ok{background:rgba(47,163,70,.12);color:#9be3a8;border:1px solid rgba(47,163,70,.35)}
+.msg--info{background:var(--bg-3);color:var(--text-2);border:1px solid var(--line)}
+.galleries{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.gcard{display:grid;grid-template-rows:auto 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg-2)}
+.gcard .cover{aspect-ratio:16/10;background:var(--bg-3) center/cover no-repeat;max-width:100%}
+.gcard .body{padding:14px 16px;display:grid;gap:8px;align-content:start}
+.gcard h3{margin:0;font-size:1.02rem;line-height:1.25;text-wrap:balance}
+.gcard .meta{color:var(--text-3);font-size:.85rem}
+.toolbar{position:sticky;top:60px;z-index:10;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;background:linear-gradient(var(--bg) 75%,rgba(5,6,5,0))}
+.drop{border:2px dashed var(--line-2);border-radius:16px;padding:26px;text-align:center;color:var(--text-2);cursor:pointer;transition:border-color .2s,background .2s}
+.drop.over,.drop:hover{border-color:var(--green);background:rgba(47,163,70,.06)}
+.drop b{color:var(--text)}
+.progress{display:grid;gap:8px}
+.bar{height:8px;border-radius:99px;background:var(--bg-3);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.th{position:relative;margin:0;border-radius:10px;overflow:hidden;background:var(--bg-3);aspect-ratio:3/2;cursor:pointer;border:2px solid transparent}
+.th img{width:100%;height:100%;object-fit:cover}
+.th figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 5px;font-size:.72rem;color:#e8ece9;background:linear-gradient(transparent,rgba(0,0,0,.75));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.th .chk{position:absolute;top:6px;left:6px;width:24px;height:24px;border-radius:7px;border:2px solid rgba(255,255,255,.85);background:rgba(0,0,0,.35);display:grid;place-items:center}
+.th.sel{border-color:var(--red)}
+.th.sel .chk{background:var(--red);border-color:var(--red)}
+.th.sel .chk::after{content:"";width:10px;height:6px;border:2.5px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.th.new::before{content:"Nouvelle";position:absolute;top:6px;right:6px;z-index:1;padding:2px 8px;border-radius:99px;background:var(--green-2);font-size:.7rem;font-weight:700}
+.confirm{border:1px solid rgba(229,72,77,.45);background:var(--red-bg);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
+.crumbs{display:flex;gap:8px;align-items:center;color:var(--text-3);font-size:.9rem;margin-bottom:14px}
+.crumbs button{all:unset;cursor:pointer;color:var(--text-2);text-decoration:underline;text-underline-offset:3px}
+.link{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.link code{word-break:break-all}
+.spinner{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--green);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/galerie/admin/">Relais Populaire <small>· Galeries</small></a>
+    <div class="user" id="userBox" hidden><span id="userName"></span><button class="btn btn--sm" type="button" id="logout">Se déconnecter</button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="globalMsg" class="msg" hidden></div>
+
+  <!-- Connexion -->
+  <section id="vLogin" hidden>
+    <h1>Gestion des galeries</h1>
+    <p class="muted">Espace réservé à Relais Populaire Média. Il sert à créer des galeries client, à y ajouter des photos et à en supprimer.</p>
+    <div class="stack" style="margin-top:22px">
+      <form class="card form" id="loginForm">
+        <h2>Se connecter</h2>
+        <label for="token">Clé d’accès GitHub
+          <input type="password" id="token" autocomplete="current-password" placeholder="github_pat_…" required>
+        </label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" id="remember" checked> Rester connecté sur cet appareil</label>
+        <div class="row"><button class="btn btn--green" type="submit" id="loginBtn">Se connecter</button></div>
+        <div id="loginMsg" class="msg msg--err" hidden></div>
+      </form>
+      <div class="card">
+        <h2>Créer sa clé d’accès (une seule fois)</h2>
+        <ol class="steps">
+          <li>Connecté à GitHub, ouvrez <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+          <li><b>Token name</b> : <code>Galeries RPM</code>. <b>Expiration</b> : la durée de votre choix (par exemple 1 an).</li>
+          <li><b>Repository access</b> : « Only select repositories » → <code>relaispopulaire.fr</code>.</li>
+          <li><b>Permissions</b> → <b>Repository permissions</b> → <b>Contents</b> : « Read and write ».</li>
+          <li>Cliquez sur <b>Generate token</b>, copiez la clé (elle commence par <code>github_pat_</code>) et collez-la ci-dessus.</li>
+        </ol>
+        <p class="muted small" style="margin:12px 0 0">La clé reste dans votre navigateur et n’est envoyée qu’à GitHub. Ne la partagez avec personne : elle donne accès au contenu du site.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Liste des galeries -->
+  <section id="vList" hidden>
+    <div class="row" style="justify-content:space-between;margin-bottom:18px">
+      <div><h1>Galeries</h1><p class="muted" style="margin:0">Chaque galerie a son propre lien à envoyer au client. Elles ne sont pas listées sur le site.</p></div>
+      <button class="btn btn--green" type="button" id="newBtn">+ Nouvelle galerie</button>
+    </div>
+    <form class="card form" id="newForm" hidden style="margin-bottom:18px">
+      <h2>Nouvelle galerie</h2>
+      <label for="nTitle">Titre <input type="text" id="nTitle" required maxlength="120" placeholder="Ex. : Gala de l’association — 25 novembre 2026"></label>
+      <div class="two">
+        <label for="nDate">Date de l’événement <input type="date" id="nDate"></label>
+        <label for="nSlug">Adresse de la page <input type="text" id="nSlug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="60" placeholder="gala-25-novembre"></label>
+      </div>
+      <p class="muted small" style="margin:0" id="nUrl"></p>
+      <label for="nLead">Texte d’introduction (facultatif) <textarea id="nLead" maxlength="600" placeholder="Ex. : Les photos de la soirée de gala…"></textarea></label>
+      <div class="row"><button class="btn btn--green" type="submit">Créer la galerie</button><button class="btn" type="button" id="newCancel">Annuler</button></div>
+    </form>
+    <div id="listLoading" class="row muted"><span class="spinner"></span> Chargement des galeries…</div>
+    <div class="galleries" id="galleries"></div>
+  </section>
+
+  <!-- Une galerie -->
+  <section id="vGal" hidden>
+    <div class="crumbs"><button type="button" id="backBtn">← Toutes les galeries</button></div>
+    <h1 id="gTitle"></h1>
+    <p class="muted" id="gSub" style="margin:0 0 12px"></p>
+    <div class="link" style="margin-bottom:18px"><code id="gUrl"></code><button class="btn btn--sm" type="button" id="copyBtn">Copier le lien</button><a class="btn btn--sm" id="openBtn" target="_blank" rel="noopener">Ouvrir la page</a><button class="btn btn--sm" type="button" id="editBtn">Modifier les infos</button></div>
+
+    <form class="card form" id="editForm" hidden style="margin-bottom:18px">
+      <h2>Informations de la galerie</h2>
+      <label for="eTitle">Titre <input type="text" id="eTitle" required maxlength="120"></label>
+      <label for="eDate">Date de l’événement <input type="date" id="eDate"></label>
+      <label for="eLead">Texte d’introduction <textarea id="eLead" maxlength="600"></textarea></label>
+      <div class="row"><button class="btn btn--green" type="submit">Enregistrer</button><button class="btn" type="button" id="editCancel">Annuler</button></div>
+    </form>
+
+    <div class="card stack" style="margin-bottom:18px">
+      <h2 style="margin:0">Ajouter des photos</h2>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choisir des photos à ajouter">
+        <b>Glissez vos photos ici</b> ou cliquez pour les choisir.<br><span class="small">JPG ou PNG, en qualité originale. Les aperçus web sont fabriqués automatiquement.</span>
+      </div>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png" multiple hidden>
+      <div class="progress" id="upProg" hidden>
+        <div class="row" style="justify-content:space-between"><span id="upTxt"></span><span class="muted small" id="upPct"></span></div>
+        <div class="bar"><i id="upBar"></i></div>
+        <p class="muted small" style="margin:0">Gardez cette page ouverte jusqu’à la fin de l’envoi.</p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <span class="muted" id="gCount"></span>
+      <div class="row">
+        <button class="btn btn--sm" type="button" id="selAll">Tout sélectionner</button>
+        <button class="btn btn--sm btn--red" type="button" id="delSel" disabled>Supprimer la sélection</button>
+      </div>
+    </div>
+    <div class="confirm" id="delConfirm" hidden style="margin-bottom:12px">
+      <span id="delTxt"></span>
+      <div class="row"><button class="btn btn--sm btn--red" type="button" id="delYes">Oui, supprimer définitivement</button><button class="btn btn--sm" type="button" id="delNo">Annuler</button></div>
+    </div>
+    <p class="muted small" style="margin:0 0 10px">Cliquez sur les photos pour les sélectionner. Le numéro correspond à celui affiché dans la visionneuse du client.</p>
+    <div class="thumbs" id="thumbs"></div>
+
+    <div class="card stack" style="margin-top:40px;border-color:rgba(229,72,77,.3)">
+      <h2 style="margin:0">Supprimer toute la galerie</h2>
+      <p class="muted small" style="margin:0">La page, les aperçus et les fichiers originaux seront supprimés. Le lien client ne fonctionnera plus.</p>
+      <div class="row"><label for="delGalTxt" class="small" style="flex-basis:100%">Pour confirmer, tapez l’adresse de la galerie :</label><input type="text" id="delGalTxt" style="max-width:320px" autocomplete="off"><button class="btn btn--red" type="button" id="delGal" disabled>Supprimer la galerie</button></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  "use strict";
+  const OWNER = "relaispopulaire-del", REPO = "relaispopulaire.fr";
+  const API = "https://api.github.com";
+  const MAIN = "main", ORIG = "galerie-originaux";
+  const BASE = "src/galerie";
+  const SITE = "https://relaispopulaire.fr";
+  const TKEY = "rpm-galeries-cle";
+  const $ = (id) => document.getElementById(id);
+  const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const human = (b) => b >= 1e9 ? (b / 1e9).toFixed(1).replace(".", ",") + " Go" : Math.max(1, Math.round(b / 1e6)) + " Mo";
+  const dateFr = (iso) => { if (!iso) return ""; const d = new Date(iso + "T12:00:00"); return isNaN(d) ? iso : d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }); };
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  let token = "";
+  try { token = localStorage.getItem(TKEY) || sessionStorage.getItem(TKEY) || ""; } catch (e) {}
+
+  // ---------- GitHub ----------
+  async function gh(path, opts = {}) {
+    const r = await fetch(API + path, {
+      ...opts,
+      headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${token}`, "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? { "Content-Type": "application/json" } : {}) },
+    });
+    if (!r.ok) {
+      let m = ""; try { m = (await r.json()).message || ""; } catch (e) {}
+      const err = new Error(m || `Erreur ${r.status}`); err.status = r.status; throw err;
+    }
+    return r.status === 204 ? null : r.json();
+  }
+  const repo = (p) => `/repos/${OWNER}/${REPO}${p}`;
+  const encPath = (p) => p.split("/").map(encodeURIComponent).join("/");
+
+  function b64FromBytes(buf) {
+    const bytes = new Uint8Array(buf); let s = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(s);
+  }
+  async function blobFromBytes(buf) { return (await gh(repo("/git/blobs"), { method: "POST", body: JSON.stringify({ content: b64FromBytes(buf), encoding: "base64" }) })).sha; }
+  async function blobFromText(text) { return (await gh(repo("/git/blobs"), { method: "POST", body: JSON.stringify({ content: text, encoding: "utf-8" }) })).sha; }
+
+  async function readText(path, ref) {
+    const r = await gh(repo(`/contents/${encPath(path)}?ref=${ref}&t=${Date.now()}`));
+    const bin = atob(r.content.replace(/\n/g, ""));
+    return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
+  }
+  async function readJson(path, ref) { return JSON.parse(await readText(path, ref)); }
+
+  // Une modification = un commit. `build(head)` renvoie la liste des fichiers à écrire / supprimer.
+  // Si quelqu’un d’autre a publié entre-temps (mise à jour automatique des vidéos), on recommence.
+  async function commit(branch, message, build) {
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const ref = await gh(repo(`/git/ref/heads/${branch}`));
+      const head = ref.object.sha;
+      const base = await gh(repo(`/git/commits/${head}`));
+      const entries = await build(head);
+      if (!entries.length) return head;
+      const tree = await gh(repo("/git/trees"), { method: "POST", body: JSON.stringify({ base_tree: base.tree.sha, tree: entries.map((e) => ({ path: e.path, mode: "100644", type: "blob", sha: e.sha })) }) });
+      const c = await gh(repo("/git/commits"), { method: "POST", body: JSON.stringify({ message, tree: tree.sha, parents: [head] }) });
+      try { await gh(repo(`/git/refs/heads/${branch}`), { method: "PATCH", body: JSON.stringify({ sha: c.sha }) }); return c.sha; }
+      catch (e) { if (e.status === 422 || e.status === 409) { await sleep(1500 * (attempt + 1)); continue; } throw e; }
+    }
+    throw new Error("GitHub a refusé l’enregistrement plusieurs fois de suite. Réessayez dans une minute.");
+  }
+  async function listTree(branch, prefix) {
+    const ref = await gh(repo(`/git/ref/heads/${branch}`));
+    const c = await gh(repo(`/git/commits/${ref.object.sha}`));
+    const t = await gh(repo(`/git/trees/${c.tree.sha}?recursive=1`));
+    return t.tree.filter((e) => e.type === "blob" && e.path.startsWith(prefix)).map((e) => e.path);
+  }
+
+  // ---------- Affichage ----------
+  function view(name) { ["vLogin", "vList", "vGal"].forEach((v) => ($(v).hidden = v !== name)); window.scrollTo(0, 0); }
+  function msg(text, kind = "ok", sticky = false) {
+    const el = $("globalMsg"); el.className = `msg msg--${kind}`; el.textContent = text; el.hidden = !text;
+    clearTimeout(msg.t); if (text && !sticky) msg.t = setTimeout(() => (el.hidden = true), 9000);
+  }
+  const PUBLISH = "Les changements apparaissent sur la page publique dans 2 à 3 minutes, le temps que le site soit republié.";
+  function friendly(e) {
+    if (e.status === 401) return "La clé d’accès n’est plus valide (expirée ou supprimée). Déconnectez-vous et créez-en une nouvelle.";
+    if (e.status === 403 || e.status === 404) return "La clé d’accès n’a pas le droit de modifier le site. Vérifiez qu’elle donne accès au dépôt relaispopulaire.fr avec « Contents : Read and write ».";
+    if (e instanceof TypeError) return "Impossible de joindre GitHub. Vérifiez votre connexion internet, puis réessayez.";
+    return e.message || "Une erreur est survenue.";
+  }
+
+  // ---------- Connexion ----------
+  $("loginForm").onsubmit = async (e) => {
+    e.preventDefault();
+    token = $("token").value.trim(); $("loginMsg").hidden = true; $("loginBtn").disabled = true;
+    try {
+      const [me, r] = await Promise.all([gh("/user").catch(() => null), gh(repo(""))]);
+      if (r.permissions && !r.permissions.push) throw Object.assign(new Error(), { status: 403 });
+      try { ($("remember").checked ? localStorage : sessionStorage).setItem(TKEY, token); } catch (err) {}
+      $("token").value = ""; start(me);
+    } catch (err) { $("loginMsg").textContent = friendly(err); $("loginMsg").hidden = false; token = ""; }
+    finally { $("loginBtn").disabled = false; }
+  };
+  $("logout").onclick = () => { try { localStorage.removeItem(TKEY); sessionStorage.removeItem(TKEY); } catch (e) {} token = ""; $("userBox").hidden = true; view("vLogin"); };
+
+  async function start(me) {
+    if (!me) { try { me = await gh("/user"); } catch (e) { me = null; } }
+    $("userName").textContent = me?.login ? `Connecté : ${me.login}` : "Connecté";
+    $("userBox").hidden = false;
+    showList();
+  }
+
+  // ---------- Liste ----------
+  let galleries = [];
+  async function showList() {
+    view("vList"); $("listLoading").hidden = false; $("galleries").innerHTML = "";
+    try {
+      const items = await gh(repo(`/contents/${BASE}?ref=${MAIN}&t=${Date.now()}`));
+      const dirs = items.filter((i) => i.type === "dir" && !i.name.startsWith("_") && i.name !== "admin");
+      galleries = (await Promise.all(dirs.map((d) => readJson(`${BASE}/${d.name}/data.json`, MAIN).then((g) => ({ ...g, slug: d.name })).catch(() => null)))).filter(Boolean);
+      galleries.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+      $("galleries").innerHTML = galleries.length ? galleries.map((g, i) => {
+        const n = (g.photos || []).length, cover = n ? `${SITE}/galerie/${g.slug}/thumb/${encodeURIComponent(g.photos[0].f)}` : "";
+        return `<article class="gcard"><div class="cover" ${cover ? `style="background-image:url('${cover}')"` : ""}></div><div class="body"><h3>${esc(g.title)}</h3><div class="meta">${esc(dateFr(g.date))}${g.date ? " · " : ""}${n} photo${n > 1 ? "s" : ""}</div><div class="row"><button class="btn btn--sm btn--green" type="button" data-open="${i}">Gérer</button><a class="btn btn--sm" href="/galerie/${g.slug}/" target="_blank" rel="noopener">Voir la page</a></div></div></article>`;
+      }).join("") : `<p class="muted">Aucune galerie pour l’instant. Créez la première avec « Nouvelle galerie ».</p>`;
+    } catch (e) { msg(friendly(e), "err", true); }
+    finally { $("listLoading").hidden = true; }
+  }
+  $("galleries").onclick = (e) => { const b = e.target.closest("[data-open]"); if (b) openGallery(galleries[+b.dataset.open].slug); };
+
+  // ---------- Nouvelle galerie ----------
+  const slugify = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[’']/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60).replace(/-+$/, "");
+  let slugTouched = false;
+  function autoSlug() {
+    if (slugTouched) return;
+    const d = $("nDate").value; let s = slugify($("nTitle").value);
+    if (d && !/\d{4}/.test(s)) s = `${s}-${d}`.replace(/^-/, "");
+    $("nSlug").value = s; showUrl();
+  }
+  const showUrl = () => ($("nUrl").textContent = $("nSlug").value ? `Lien client : ${SITE}/galerie/${$("nSlug").value}/` : "");
+  $("nTitle").oninput = autoSlug; $("nDate").oninput = autoSlug;
+  $("nSlug").oninput = () => { slugTouched = true; $("nSlug").value = slugify($("nSlug").value.replace(/-$/, "") ) + ($("nSlug").value.endsWith("-") ? "-" : ""); showUrl(); };
+  $("newBtn").onclick = () => { $("newForm").hidden = false; slugTouched = false; $("nTitle").focus(); };
+  $("newCancel").onclick = () => { $("newForm").hidden = true; $("newForm").reset(); showUrl(); };
+  $("newForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const slug = slugify($("nSlug").value);
+    if (!slug || ["admin", "modele"].includes(slug)) return msg("Choisissez une autre adresse pour la page.", "err");
+    if (galleries.some((g) => g.slug === slug)) return msg("Une galerie utilise déjà cette adresse. Choisissez-en une autre.", "err");
+    const btn = e.submitter; btn.disabled = true;
+    try {
+      const tpl = await readText(`${BASE}/_modele/index.html`, MAIN);
+      const data = { slug, title: $("nTitle").value.trim(), date: $("nDate").value, lead: $("nLead").value.trim(), photos: [] };
+      const [s1, s2] = await Promise.all([blobFromText(tpl), blobFromText(JSON.stringify(data, null, 1))]);
+      await commit(MAIN, `Galerie : création de « ${data.title} »`, async () => [{ path: `${BASE}/${slug}/index.html`, sha: s1 }, { path: `${BASE}/${slug}/data.json`, sha: s2 }]);
+      $("newForm").reset(); $("newForm").hidden = true; showUrl();
+      msg(`Galerie créée. Ajoutez maintenant les photos. ${PUBLISH}`);
+      galleries.push(data); openGallery(slug, data);
+    } catch (err) { msg(friendly(err), "err", true); }
+    finally { btn.disabled = false; }
+  };
+
+  // ---------- Une galerie ----------
+  let G = null, selected = new Set(), localPreview = new Map();
+  async function openGallery(slug, data) {
+    view("vGal"); selected.clear(); $("delConfirm").hidden = true; $("editForm").hidden = true; $("delGalTxt").value = ""; $("delGal").disabled = true;
+    $("gTitle").textContent = "Chargement…"; $("thumbs").innerHTML = "";
+    try { G = data || await readJson(`${BASE}/${slug}/data.json`, MAIN); G.slug = slug; G.photos = G.photos || []; }
+    catch (e) { msg(friendly(e), "err", true); return showList(); }
+    renderGallery();
+  }
+  function renderGallery() {
+    const url = `${SITE}/galerie/${G.slug}/`, n = G.photos.length, total = G.photos.reduce((a, p) => a + p.b, 0);
+    $("gTitle").textContent = G.title;
+    $("gSub").textContent = [dateFr(G.date), `${n} photo${n > 1 ? "s" : ""}`, n ? human(total) : ""].filter(Boolean).join(" · ");
+    $("gUrl").textContent = url; $("openBtn").href = `/galerie/${G.slug}/`;
+    $("delGalTxt").placeholder = G.slug;
+    $("gCount").textContent = n ? `${n} photo${n > 1 ? "s" : ""}` : "Aucune photo pour l’instant.";
+    $("thumbs").innerHTML = G.photos.map((p, i) => {
+      const src = localPreview.get(p.f) || `/galerie/${G.slug}/thumb/${encodeURIComponent(p.f)}`;
+      return `<figure class="th${selected.has(p.f) ? " sel" : ""}${localPreview.has(p.f) ? " new" : ""}" data-f="${esc(p.f)}" tabindex="0" role="checkbox" aria-checked="${selected.has(p.f)}"><img src="${esc(src)}" alt="" loading="lazy"><span class="chk"></span><figcaption>n° ${i + 1} · ${esc(p.f)}</figcaption></figure>`;
+    }).join("");
+    updateSel();
+  }
+  function updateSel() {
+    $("delSel").disabled = !selected.size;
+    $("delSel").textContent = selected.size ? `Supprimer la sélection (${selected.size})` : "Supprimer la sélection";
+    $("selAll").textContent = selected.size && selected.size === G.photos.length ? "Tout désélectionner" : "Tout sélectionner";
+  }
+  function toggle(fig) {
+    const f = fig.dataset.f; selected.has(f) ? selected.delete(f) : selected.add(f);
+    fig.classList.toggle("sel", selected.has(f)); fig.setAttribute("aria-checked", selected.has(f)); updateSel(); $("delConfirm").hidden = true;
+  }
+  $("thumbs").onclick = (e) => { const fig = e.target.closest(".th"); if (fig) toggle(fig); };
+  $("thumbs").onkeydown = (e) => { const fig = e.target.closest(".th"); if (fig && (e.key === " " || e.key === "Enter")) { e.preventDefault(); toggle(fig); } };
+  $("selAll").onclick = () => { if (selected.size === G.photos.length) selected.clear(); else G.photos.forEach((p) => selected.add(p.f)); renderGallery(); };
+  $("backBtn").onclick = () => showList();
+  $("copyBtn").onclick = async () => { try { await navigator.clipboard.writeText($("gUrl").textContent); $("copyBtn").textContent = "Lien copié"; setTimeout(() => ($("copyBtn").textContent = "Copier le lien"), 2000); } catch (e) { getSelection().selectAllChildren($("gUrl")); } };
+
+  // Modifier les infos
+  $("editBtn").onclick = () => { $("eTitle").value = G.title; $("eDate").value = G.date || ""; $("eLead").value = G.lead || ""; $("editForm").hidden = false; $("eTitle").focus(); };
+  $("editCancel").onclick = () => ($("editForm").hidden = true);
+  $("editForm").onsubmit = async (e) => {
+    e.preventDefault(); const btn = e.submitter; btn.disabled = true;
+    const upd = { title: $("eTitle").value.trim(), date: $("eDate").value, lead: $("eLead").value.trim() };
+    try {
+      await commit(MAIN, `Galerie ${G.slug} : informations modifiées`, async (head) => {
+        const cur = await readJson(`${BASE}/${G.slug}/data.json`, head);
+        Object.assign(cur, upd); G = { ...cur, slug: G.slug };
+        return [{ path: `${BASE}/${G.slug}/data.json`, sha: await blobFromText(JSON.stringify(cur, null, 1)) }];
+      });
+      $("editForm").hidden = true; renderGallery(); msg(`Informations enregistrées. ${PUBLISH}`);
+    } catch (err) { msg(friendly(err), "err", true); }
+    finally { btn.disabled = false; }
+  };
+
+  // Supprimer des photos
+  $("delSel").onclick = () => { $("delTxt").textContent = `Supprimer définitivement ${selected.size} photo${selected.size > 1 ? "s" : ""} de cette galerie ? Les fichiers originaux seront aussi supprimés du site.`; $("delConfirm").hidden = false; };
+  $("delNo").onclick = () => ($("delConfirm").hidden = true);
+  $("delYes").onclick = async () => {
+    const list = [...selected]; if (!list.length) return;
+    $("delYes").disabled = true; msg(`Suppression de ${list.length} photo${list.length > 1 ? "s" : ""}…`, "info", true);
+    try {
+      await commit(MAIN, `Galerie ${G.slug} : ${list.length} photo(s) supprimée(s)`, async (head) => {
+        const cur = await readJson(`${BASE}/${G.slug}/data.json`, head);
+        cur.photos = (cur.photos || []).filter((p) => !selected.has(p.f)); G = { ...cur, slug: G.slug };
+        const out = [{ path: `${BASE}/${G.slug}/data.json`, sha: await blobFromText(JSON.stringify(cur, null, 1)) }];
+        const existing = new Set(await listTree(MAIN, `${BASE}/${G.slug}/`));
+        list.forEach((f) => ["thumb", "web"].forEach((d) => { const p = `${BASE}/${G.slug}/${d}/${f}`; if (existing.has(p)) out.push({ path: p, sha: null }); }));
+        return out;
+      });
+      const origs = new Set(await listTree(ORIG, `${G.slug}/`));
+      await commit(ORIG, `Galerie ${G.slug} : ${list.length} original(aux) supprimé(s)`, async () => list.map((f) => `${G.slug}/${f}`).filter((p) => origs.has(p)).map((p) => ({ path: p, sha: null })));
+      list.forEach((f) => localPreview.delete(f)); selected.clear(); $("delConfirm").hidden = true; renderGallery();
+      msg(`${list.length} photo${list.length > 1 ? "s supprimées" : " supprimée"}. ${PUBLISH}`);
+    } catch (err) { msg(friendly(err), "err", true); }
+    finally { $("delYes").disabled = false; }
+  };
+
+  // Supprimer la galerie
+  $("delGalTxt").oninput = () => ($("delGal").disabled = $("delGalTxt").value.trim() !== G.slug);
+  $("delGal").onclick = async () => {
+    $("delGal").disabled = true; msg("Suppression de la galerie…", "info", true);
+    try {
+      const pages = await listTree(MAIN, `${BASE}/${G.slug}/`);
+      await commit(MAIN, `Galerie ${G.slug} supprimée`, async () => pages.map((p) => ({ path: p, sha: null })));
+      const origs = await listTree(ORIG, `${G.slug}/`);
+      if (origs.length) await commit(ORIG, `Galerie ${G.slug} : originaux supprimés`, async () => origs.map((p) => ({ path: p, sha: null })));
+      msg(`Galerie « ${G.title} » supprimée.`); showList();
+    } catch (err) { msg(friendly(err), "err", true); $("delGal").disabled = false; }
+  };
+
+  // Ajouter des photos
+  const drop = $("drop");
+  drop.onclick = () => $("fileInput").click();
+  drop.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("fileInput").click(); } };
+  ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", (e) => addFiles([...e.dataTransfer.files]));
+  $("fileInput").onchange = (e) => { addFiles([...e.target.files]); e.target.value = ""; };
+
+  async function resized(bitmap, max, quality) {
+    const s = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * s), h = Math.round(bitmap.height * s);
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const ctx = c.getContext("2d"); ctx.imageSmoothingQuality = "high"; ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", quality));
+    return { blob, w, h, canvas: c };
+  }
+  const cleanName = (n) => n.replace(/[\/\\]/g, "-").replace(/^\.+/, "").replace(/\s+/g, " ").trim() || "photo.jpg";
+
+  let busy = false;
+  window.addEventListener("beforeunload", (e) => { if (busy) { e.preventDefault(); e.returnValue = ""; } });
+
+  async function addFiles(files) {
+    if (busy) return msg("Un envoi est déjà en cours. Attendez qu’il se termine.", "info");
+    files = files.filter((f) => /^image\/(jpeg|png)$/.test(f.type) || /\.(jpe?g|png)$/i.test(f.name));
+    if (!files.length) return msg("Aucune photo JPG ou PNG dans votre sélection.", "err");
+    busy = true; $("upProg").hidden = false; drop.style.pointerEvents = "none";
+    const names = new Set(G.photos.map((p) => p.f));
+    const total = files.length; let done = 0, failed = [];
+    const step = (t) => { $("upTxt").textContent = t; const pct = Math.round((done / total) * 100); $("upPct").textContent = `${done} / ${total}`; $("upBar").style.width = pct + "%"; };
+    files.sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true }));
+    const BATCH = 4; // originaux envoyés 4 par 4 (environ 80 Mo par enregistrement)
+    try {
+      for (let i = 0; i < files.length; i += BATCH) {
+        const group = files.slice(i, i + BATCH), ready = [];
+        for (const file of group) {
+          let name = cleanName(file.name);
+          if (names.has(name)) { const m = name.match(/^(.*?)(\.[^.]+)?$/); let k = 2; while (names.has(`${m[1]}-${k}${m[2] || ""}`)) k++; name = `${m[1]}-${k}${m[2] || ""}`; }
+          try {
+            step(`Préparation de ${file.name}…`);
+            const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+            const web = await resized(bmp, 1600, 0.82);
+            const th = await resized(web.canvas, 640, 0.78);
+            bmp.close && bmp.close();
+            step(`Envoi de ${file.name}…`);
+            const [so, sw, st] = await Promise.all([blobFromBytes(await file.arrayBuffer()), blobFromBytes(await web.blob.arrayBuffer()), blobFromBytes(await th.blob.arrayBuffer())]);
+            ready.push({ name, so, sw, st, w: web.w, h: web.h, b: file.size, preview: URL.createObjectURL(th.blob) });
+            names.add(name);
+          } catch (err) { if (err.status) throw err; failed.push(file.name); }
+          done++; step(`Envoi en cours…`);
+        }
+        if (!ready.length) continue;
+        step(`Enregistrement sur le site (${done} / ${total})…`);
+        await commit(ORIG, `Galerie ${G.slug} : ${ready.length} original(aux) ajouté(s)`, async () => ready.map((r) => ({ path: `${G.slug}/${r.name}`, sha: r.so })));
+        await commit(MAIN, `Galerie ${G.slug} : ${ready.length} photo(s) ajoutée(s)`, async (head) => {
+          const cur = await readJson(`${BASE}/${G.slug}/data.json`, head);
+          cur.photos = cur.photos || [];
+          const have = new Set(cur.photos.map((p) => p.f));
+          ready.forEach((r) => { if (!have.has(r.name)) cur.photos.push({ f: r.name, w: r.w, h: r.h, b: r.b }); }); // ajoutées à la fin, dans l’ordre de leurs noms
+          G = { ...cur, slug: G.slug };
+          const out = [{ path: `${BASE}/${G.slug}/data.json`, sha: await blobFromText(JSON.stringify(cur, null, 1)) }];
+          ready.forEach((r) => out.push({ path: `${BASE}/${G.slug}/web/${r.name}`, sha: r.sw }, { path: `${BASE}/${G.slug}/thumb/${r.name}`, sha: r.st }));
+          return out;
+        });
+        ready.forEach((r) => localPreview.set(r.name, r.preview));
+        renderGallery();
+      }
+      const ok = total - failed.length;
+      msg(`${ok} photo${ok > 1 ? "s ajoutées" : " ajoutée"}.` + (failed.length ? ` Impossible de lire : ${failed.join(", ")}.` : "") + ` ${PUBLISH}`, failed.length ? "info" : "ok", !!failed.length);
+    } catch (err) { msg(`${friendly(err)} Les photos déjà enregistrées (${done}) sont conservées ; relancez l’envoi pour les autres.`, "err", true); }
+    finally { busy = false; $("upProg").hidden = true; drop.style.pointerEvents = ""; $("upBar").style.width = "0"; }
+  }
+
+  // ---------- Démarrage ----------
+  if (token) start(null).catch(() => view("vLogin")); else view("vLogin");
+})();
+</script>
+</body>
+</html>

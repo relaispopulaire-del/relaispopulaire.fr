@@ -32,3 +32,14 @@ python3 youtube.py      # facultatif : récupère les dernières vidéos
 python3 build.py        # génère dist/
 python3 flat.py _site   # version publiée sur GitHub Pages
 ```
+
+## Galeries photo clients
+
+- Chaque galerie est un dossier `src/galerie/<adresse>/` : `index.html` (copie de
+  `src/galerie/_modele/index.html`), `data.json` (titre, date, texte, liste des photos),
+  `thumb/` et `web/` (aperçus). Les fichiers originaux sont sur la branche
+  `galerie-originaux`, dans `<adresse>/`.
+- Les galeries ne sont pas listées sur le site ni indexées (`robots.txt` exclut `/galerie/`).
+- Gestion (créer une galerie, ajouter ou supprimer des photos) : **relaispopulaire.fr/galerie/admin/**,
+  avec une clé d’accès GitHub personnelle (« fine-grained token », dépôt `relaispopulaire.fr`,
+  permission Contents : Read and write). Chaque changement est republié en 2 à 3 minutes.
