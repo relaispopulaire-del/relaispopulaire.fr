@@ -281,11 +281,12 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;bac
   function msg(text, kind = "ok", sticky = false) {
     const el = $("globalMsg"); el.className = `msg msg--${kind}`; el.textContent = text; el.hidden = !text;
     clearTimeout(msg.t); if (text && !sticky) msg.t = setTimeout(() => (el.hidden = true), 9000);
+    if (text && kind === "err") { el.scrollIntoView({ behavior: "smooth", block: "center" }); $("delConfirm").hidden = true; }
   }
   const PUBLISH = "Les changements apparaissent sur la page publique dans 2 à 3 minutes, le temps que le site soit republié.";
   function friendly(e) {
     if (e.status === 401) return "La clé d’accès n’est plus valide (expirée ou supprimée). Déconnectez-vous et créez-en une nouvelle.";
-    if (e.status === 403 || e.status === 404) return "La clé d’accès n’a pas le droit de modifier le site. Vérifiez qu’elle donne accès au dépôt relaispopulaire.fr avec « Contents : Read and write ».";
+    if (e.status === 403 || e.status === 404) return "Rien n’a été modifié : votre clé d’accès peut lire le site mais pas le modifier. Sur GitHub (Settings → Developer settings → Fine-grained tokens), ouvrez la clé, choisissez « Only select repositories » → relaispopulaire.fr, puis dans Repository permissions mettez « Contents » sur « Read and write », et enregistrez.";
     if (e instanceof TypeError) return "Impossible de joindre GitHub. Vérifiez votre connexion internet, puis réessayez.";
     return e.message || "Une erreur est survenue.";
   }
