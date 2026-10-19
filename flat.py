@@ -42,6 +42,11 @@ css.write_text(css.read_text(encoding="utf-8").replace("../fonts/", ""), encodin
 man = OUT / "site.webmanifest"
 man.write_text(man.read_text(encoding="utf-8").replace("/assets/img/", "/"), encoding="utf-8")
 
+# Galeries photo clients (pages autonomes, non indexées) : copiées telles quelles
+GAL = ROOT / "src" / "galerie"
+if GAL.exists():
+    shutil.copytree(GAL, OUT / "galerie")
+
 (OUT / "CNAME").write_text("relaispopulaire.fr\n", encoding="utf-8")
 (OUT / ".nojekyll").write_text("", encoding="utf-8")
 left = [str(p.name) for p in OUT.iterdir() if "assets/" in p.read_text(errors="ignore")] if False else []
