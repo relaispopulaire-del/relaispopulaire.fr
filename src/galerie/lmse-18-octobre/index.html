@@ -129,8 +129,8 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
       <li>Photos : <b>Relais Populaire Média</b></li>
     </ul>
     <div class="panel" id="tout">
-      <p>Tout télécharger d’un coup : les 248 photos originales en 3 fichiers ZIP (5,4 Go au total). Sur téléphone, préférez le téléchargement photo par photo.</p>
-      <ul class="zips"><li><a href="https://github.com/relaispopulaire-del/relaispopulaire.fr/releases/download/galerie-lmse-2026-10-18/LMSE-18-octobre-2026_partie-1.zip" download>Partie 1 — photos 1 à 84<span>84 photos · 1,8 Go</span></a></li><li><a href="https://github.com/relaispopulaire-del/relaispopulaire.fr/releases/download/galerie-lmse-2026-10-18/LMSE-18-octobre-2026_partie-2.zip" download>Partie 2 — photos 85 à 166<span>82 photos · 1,8 Go</span></a></li><li><a href="https://github.com/relaispopulaire-del/relaispopulaire.fr/releases/download/galerie-lmse-2026-10-18/LMSE-18-octobre-2026_partie-3.zip" download>Partie 3 — photos 167 à 248<span>82 photos · 1,7 Go</span></a></li></ul>
+      <p>Tout télécharger d’un coup : les 248 photos originales (5,4 Go au total), en trois parties pour ne pas saturer votre connexion. Les fichiers arrivent un par un dans votre dossier Téléchargements ; acceptez les téléchargements multiples si le navigateur le demande. Sur téléphone, préférez le téléchargement photo par photo.</p>
+      <ul class="zips"><li><a href="#tout" data-part="0,84">Partie 1 — photos 1 à 84<span>84 photos · 1,8 Go</span></a></li><li><a href="#tout" data-part="84,166">Partie 2 — photos 85 à 166<span>82 photos · 1,8 Go</span></a></li><li><a href="#tout" data-part="166,248">Partie 3 — photos 167 à 248<span>82 photos · 1,7 Go</span></a></li></ul>
     </div>
   </section>
 
@@ -172,7 +172,7 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
 
 <script>
 (() => {
-  const REL = "https://github.com/relaispopulaire-del/relaispopulaire.fr/releases/download/galerie-lmse-2026-10-18/";
+  const REL = "https://raw.githubusercontent.com/relaispopulaire-del/relaispopulaire.fr/galerie-originaux/lmse-18-octobre/";
   const P = [["DJI_20261018092744_0009_D.JPG",1600,900,21.5],["A7406207.JPG",1600,1067,22.4],["A7406210.JPG",1600,1067,20.0],["A7406218.JPG",1600,1067,17.6],["A7406226.JPG",1600,1067,17.4],["A7406228.JPG",1600,1067,19.1],["A7406231.JPG",1600,1067,19.3],["A7406240.JPG",1600,1067,24.9],["A7406246.JPG",1600,1067,19.6],["A7406251.JPG",1600,1067,20.7],["A7406256.JPG",1600,1067,21.1],["A7406263.JPG",1600,1067,23.3],["A7406266.JPG",1600,1067,17.8],["A7406274.JPG",1600,1067,25.7],["A7406279.JPG",1600,1067,26.2],["A7406283.JPG",1600,1067,26.5],["A7406285.JPG",1600,1067,26.2],["A7406289.JPG",1600,1067,22.0],["A7406292.JPG",1600,1067,22.3],["A7406304.JPG",1600,1067,25.2],["A7406308.JPG",1600,1067,23.3],["A7406310.JPG",1600,1067,24.2],["A7406312.JPG",1600,1067,25.4],["A7406317.JPG",1600,1067,23.1],["A7406321.JPG",1600,1067,23.0],["A7406324.JPG",1600,1067,21.2],["A7406330.JPG",1600,1067,20.9],["A7406331.JPG",1600,1067,22.3],["A7406336.JPG",1600,1067,24.5],["A7406338.JPG",1600,1067,19.0],["A7406357.JPG",1600,1067,20.5],["A7406360.JPG",1067,1600,21.1],["A7406366.JPG",1600,1067,23.4],["A7406374.JPG",1600,1067,22.3],["A7406378.JPG",1600,1067,19.2],["A7406390.JPG",1600,1067,20.8],["A7406405.JPG",1600,1067,21.7],["A7406414.JPG",1600,1067,19.1],["A7406418.JPG",1600,1067,18.1],["A7406423.JPG",1600,1067,21.6],["A7406428.JPG",1600,1067,19.6],["A7406440.JPG",1600,1067,19.1],["A7406448.JPG",1600,1067,18.9],["A7406454.JPG",1600,1067,22.4],["A7406460.JPG",1600,1067,20.1],["A7406466.JPG",1600,1067,18.4],["A7406470.JPG",1600,1067,23.0],["A7406476.JPG",1600,1067,18.7],["A7406490.JPG",1600,1067,21.5],["A7406492.JPG",1600,1067,26.9],["A7406499.JPG",1600,1067,21.5],["A7406502.JPG",1600,1067,19.2],["A7406506.JPG",1600,1067,20.0],["A7406513.JPG",1600,1067,19.3],["A7406517.JPG",1600,1067,17.9],["A7406522.JPG",1600,1067,22.8],["A7406525.JPG",1600,1067,20.8],["A7406529.JPG",1600,1067,17.8],["A7406533.JPG",1600,1067,18.3],["A7406537.JPG",1600,1067,23.2],["A7406539.JPG",1600,1067,23.6],["A7406542.JPG",1600,1067,24.3],["A7406546.JPG",1600,1067,25.9],["A7406550.JPG",1600,1067,20.5],["A7406554.JPG",1600,1067,24.2],["A7406555.JPG",1600,1067,23.8],["A7406563.JPG",1600,1067,23.5],["A7406566.JPG",1600,1067,20.5],["A7406568.JPG",1600,1067,18.8],["A7406573.JPG",1600,1067,21.3],["A7406577.JPG",1600,1067,23.1],["A7406581.JPG",1600,1067,26.0],["A7406583.JPG",1600,1067,22.4],["A7406588.JPG",1600,1067,20.6],["A7406591.JPG",1600,1067,23.3],["A7406592.JPG",1600,1067,24.4],["A7406603.JPG",1600,1067,18.7],["A7406610.JPG",1600,1067,21.1],["A7406611.JPG",1600,1067,26.2],["A7406612.JPG",1600,1067,23.0],["A7406615.JPG",1600,1067,27.5],["A7406619.JPG",1600,1067,19.2],["A7406623.JPG",1600,1067,18.8],["A7406627.JPG",1600,1067,26.7],["A7406629.JPG",1600,1067,19.9],["A7406633.JPG",1600,1067,23.6],["A7406637.JPG",1600,1067,29.2],["A7406641.JPG",1600,1067,25.0],["A7406643.JPG",1600,1067,17.5],["A7406646.JPG",1600,1067,20.3],["A7406650.JPG",1600,1067,22.0],["A7406656.JPG",1600,1067,14.6],["A7406660.JPG",1600,1067,18.3],["A7406663.JPG",1600,1067,19.0],["A7406669.JPG",1600,1067,16.1],["A7406686.JPG",1600,1067,25.1],["A7406690.JPG",1600,1067,22.7],["A7406693.JPG",1600,1067,21.3],["A7406698.JPG",1600,1067,21.0],["A7406702.JPG",1600,1067,19.0],["A7406707.JPG",1600,1067,17.8],["A7406714.JPG",1600,1067,25.4],["A7406720.JPG",1600,1067,20.6],["A7406728.JPG",1600,1067,14.1],["A7406732.JPG",1600,1067,15.7],["A7406735.JPG",1600,1067,15.1],["A7406742.JPG",1600,1067,20.2],["A7406743.JPG",1600,1067,21.5],["A7406747.JPG",1600,1067,19.0],["A7406755.JPG",1600,1067,25.7],["A7406758.JPG",1600,1067,23.1],["A7406768.JPG",1600,1067,23.3],["A7406772.JPG",1600,1067,27.4],["A7406786.JPG",1600,1067,21.3],["A7406791.JPG",1600,1067,17.9],["A7406793.JPG",1600,1067,13.5],["A7406798.JPG",1600,1067,17.4],["A7406802.JPG",1600,1067,23.1],["A7406807.JPG",1600,1067,25.7],["A7406816.JPG",1600,1067,22.0],["A7406818.JPG",1600,1067,25.8],["A7406825.JPG",1600,1067,28.4],["A7406828.JPG",1600,1067,27.9],["A7406834.JPG",1600,1067,31.7],["A7406835.JPG",1067,1600,25.4],["A7406842.JPG",1600,1067,27.2],["A7406843.JPG",1600,1067,30.4],["A7406848.JPG",1067,1600,26.7],["A7406849.JPG",1600,1067,30.7],["A7406855.JPG",1600,1067,26.6],["A7406861.JPG",1600,1067,16.0],["A7406863.JPG",1600,1067,18.4],["A7406865.JPG",1067,1600,27.7],["A7406872.JPG",1600,1067,31.6],["A7406875.JPG",1600,1067,30.1],["A7406877.JPG",1600,1067,26.1],["A7406881.JPG",1600,1067,26.9],["A7406882.JPG",1600,1067,20.7],["A7406888.JPG",1600,1067,25.8],["A7406891.JPG",1600,1067,27.8],["A7406893.JPG",1600,1067,21.0],["A7406895.JPG",1067,1600,24.1],["A7406900.JPG",1600,1067,27.3],["A7406901.JPG",1600,1067,19.1],["A7406922.JPG",1600,1067,11.1],["A7406939.JPG",1600,1067,12.0],["A7406946.JPG",1067,1600,25.0],["A7406949.JPG",1600,1067,27.4],["A7406955.JPG",1600,1067,16.9],["A7406958.JPG",1600,1067,24.3],["A7406961.JPG",1600,1067,21.7],["A7406962.JPG",1600,1067,19.7],["A7406968.JPG",1600,1067,20.7],["A7406971.JPG",1600,1067,22.1],["A7406974.JPG",1067,1600,20.0],["A7406979.JPG",1600,1067,20.9],["A7406985.JPG",1600,1067,20.7],["A7406994.JPG",1600,1067,21.7],["A7406999.JPG",1600,1067,29.3],["A7407011.JPG",1067,1600,25.8],["A7407024.JPG",1600,1067,25.5],["A7407042.JPG",1600,1067,20.1],["A7407051.JPG",1600,1067,27.7],["A7407054.JPG",1600,1067,19.7],["A7407059.JPG",1600,1067,24.9],["A7407063.JPG",1600,1067,19.8],["A7407071.JPG",1600,1067,18.5],["A7407073.JPG",1600,1067,19.5],["A7407075.JPG",1600,1067,21.3],["A7407081.JPG",1600,1067,19.8],["A7407085.JPG",1600,1067,20.8],["A7407087.JPG",1600,1067,19.9],["A7407094.JPG",1067,1600,22.5],["A7407104.JPG",1600,1067,28.0],["A7407117.JPG",1600,1067,14.9],["A7407119.JPG",1600,1067,18.4],["A7407121.JPG",1600,1067,18.2],["A7407124.JPG",1600,1067,16.9],["A7407129.JPG",1600,1067,17.3],["A7407144.JPG",1600,1067,22.7],["A7407148.JPG",1600,1067,18.4],["A7407151.JPG",1600,1067,21.5],["A7407157.JPG",1600,1067,18.1],["A7407160.JPG",1600,1067,25.9],["A7407172.JPG",1600,1067,20.2],["A7407175.JPG",1600,1067,19.5],["A7407191.JPG",1600,1067,25.6],["A7407198.JPG",1600,1067,20.5],["A7407206.JPG",1600,1067,18.9],["A7407209.JPG",1600,1067,18.2],["A7407212.JPG",1600,1067,16.8],["A7407221.JPG",1600,1067,22.9],["A7407222.JPG",1600,1067,23.0],["A7407227.JPG",1600,1067,29.2],["A7407231.JPG",1600,1067,18.7],["A7407240.JPG",1600,1067,20.6],["A7407247.JPG",1600,1067,22.6],["A7407259.JPG",1600,1067,26.8],["A7407271.JPG",1600,1067,22.0],["A7407275.JPG",1600,1067,23.6],["A7407278.JPG",1600,1067,17.1],["A7407280.JPG",1600,1067,19.0],["A7407281.JPG",1600,1067,16.2],["A7407285.JPG",1600,1067,20.3],["A7407290.JPG",1600,1067,18.6],["A7407299.JPG",1600,1067,18.7],["A7407301.JPG",1600,1067,20.5],["A7407305.JPG",1600,1067,19.8],["A7407307.JPG",1600,1067,20.2],["A7407311.JPG",1600,1067,18.2],["A7407313.JPG",1600,1067,19.9],["A7407319.JPG",1600,1067,26.0],["A7407321.JPG",1600,1067,17.8],["A7407328.JPG",1600,1067,17.2],["A7407331.JPG",1600,1067,20.9],["A7407338.JPG",1600,1067,21.5],["A7407341.JPG",1600,1067,22.7],["A7407343.JPG",1600,1067,20.5],["A7407349.JPG",1600,1067,22.0],["A7407355.JPG",1600,1067,20.9],["A7407369.JPG",1600,1067,22.0],["A7407370.JPG",1600,1067,21.2],["A7407373.JPG",1600,1067,20.6],["A7407375.JPG",1600,1067,21.2],["A7407395.JPG",1600,1067,21.0],["A7407397.JPG",1600,1067,20.6],["A7407407.JPG",1600,1067,20.7],["A7407416.JPG",1600,1067,19.4],["A7407428.JPG",1600,1067,19.2],["A7407433.JPG",1600,1067,19.5],["A7407436.JPG",1600,1067,20.0],["A7407438.JPG",1600,1067,19.2],["A7407443.JPG",1600,1067,23.3],["A7407447.JPG",1600,1067,22.8],["A7407451.JPG",1600,1067,21.6],["A7407455.JPG",1600,1067,18.9],["A7407467.JPG",1600,1067,20.5],["A7407468.JPG",1600,1067,19.9],["A7407471.JPG",1600,1067,20.6],["A7407474.JPG",1600,1067,21.5],["A7407479.JPG",1600,1067,21.8],["A7407483.JPG",1600,1067,23.8],["A7407485.JPG",1600,1067,20.3],["A7407492.JPG",1600,1067,20.0],["A7407495.JPG",1600,1067,19.7],["A7407511.JPG",1600,1067,20.8],["A7407513.JPG",1600,1067,21.5],["A7407517.JPG",1600,1067,20.5]]; // [fichier, largeur, hauteur, Mo]
   const KEY = "rpm-galerie-lmse-2026-10-18-favoris";
   const $ = (s) => document.getElementById(s);
@@ -184,7 +184,34 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
   const url = (f) => REL + encodeURIComponent(f);
   const fmt = (mo) => String(mo).replace(".", ",") + " Mo";
 
-  function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 2600); }
+  // Téléchargement de l’original : récupéré en entier puis enregistré sous son nom de fichier
+  async function save1(f, quiet) {
+    try {
+      const r = await fetch(url(f)); if (!r.ok) throw new Error(r.status);
+      const b = await r.blob(), a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([b], { type: "image/jpeg" })); a.download = f;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 30000);
+      return true;
+    } catch (e) { if (!quiet) window.open(url(f), "_blank", "noopener"); return false; }
+  }
+  async function saveMany(list, label) {
+    if (saveMany.busy) { toast("Un téléchargement est déjà en cours…"); return; }
+    saveMany.busy = true; let ok = 0;
+    for (let k = 0; k < list.length; k++) {
+      toast(`${label} : photo ${k + 1} sur ${list.length}…`);
+      if (await save1(list[k], true)) ok++;
+    }
+    saveMany.busy = false;
+    toast(ok === list.length ? `${label} : ${ok} photo${ok > 1 ? "s" : ""} téléchargée${ok > 1 ? "s" : ""}.` : `${label} : ${ok} sur ${list.length} téléchargées. Réessayez pour les autres.`);
+  }
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a.dl, #lbDl");
+    if (a) { e.preventDefault(); const f = a.dataset.f; toast("Téléchargement de l’original…"); save1(f).then((ok) => ok && toast("Photo téléchargée.")); return; }
+    const p = e.target.closest("[data-part]");
+    if (p) { e.preventDefault(); const [i, j] = p.dataset.part.split(",").map(Number); saveMany(P.slice(i, j).map((x) => x[0]), p.firstChild.textContent.trim().split(" —")[0]); }
+  });
+
+  function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 4000); }
 
   function render() {
     view = P.map((_, i) => i).filter((i) => !onlyFavs || favs.has(P[i][0]));
@@ -197,7 +224,7 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
       fig.innerHTML =
         `<button class="open" type="button" aria-label="Agrandir la photo ${i + 1}"><img src="thumb/${f}" width="${w}" height="${h}" loading="lazy" decoding="async" alt="Photo ${i + 1} sur ${P.length}"></button>` +
         `<button class="fav" type="button" aria-pressed="${favs.has(f)}" aria-label="Favori"><svg><use href="#i-heart"/></svg></button>` +
-        `<a class="dl" href="${url(f)}" download aria-label="Télécharger l’original de la photo ${i + 1} (${fmt(mo)})"><svg><use href="#i-dl"/></svg>Original</a>`;
+        `<a class="dl" href="${url(f)}" data-f="${f}" aria-label="Télécharger l’original de la photo ${i + 1} (${fmt(mo)})"><svg><use href="#i-dl"/></svg>Original</a>`;
       const img = fig.querySelector("img");
       img.onload = () => img.classList.add("ok"); if (img.complete) img.classList.add("ok");
       fig.querySelector(".open").onclick = () => open(k);
@@ -227,14 +254,7 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
     window.scrollTo({ top: $("grid").getBoundingClientRect().top + scrollY - 140, behavior: "smooth" });
   };
 
-  $("dlFavs").onclick = () => {
-    const list = P.filter((p) => favs.has(p[0]));
-    toast(`Téléchargement de ${list.length} photo${list.length > 1 ? "s" : ""}… Autorisez les téléchargements multiples si le navigateur le demande.`);
-    list.forEach((p, k) => setTimeout(() => {
-      const fr = document.createElement("iframe"); fr.style.display = "none"; fr.src = url(p[0]);
-      document.body.appendChild(fr); setTimeout(() => fr.remove(), 60000);
-    }, k * 1200));
-  };
+  $("dlFavs").onclick = () => saveMany(P.filter((p) => favs.has(p[0])).map((p) => p[0]), "Favoris");
 
   // Visionneuse
   const lb = $("lb"), lbImg = $("lbImg");
@@ -242,7 +262,7 @@ footer a{color:var(--text-2)}footer a:hover{color:var(--text)}
     const i = view[cur], [f, , , mo] = P[i];
     lbImg.src = `web/${f}`; lbImg.alt = `Photo ${i + 1} sur ${P.length}`;
     $("lbCount").textContent = `${cur + 1} / ${view.length}`;
-    $("lbDl").href = url(f); $("lbDl").setAttribute("download", f);
+    $("lbDl").href = url(f); $("lbDl").dataset.f = f;
     $("lbSize").textContent = `l’original (${fmt(mo)})`;
     $("lbFav").setAttribute("aria-pressed", favs.has(f));
     [cur - 1, cur + 1].forEach((k) => { if (view[k] != null) { const im = new Image(); im.src = `web/${P[view[k]][0]}`; } });
