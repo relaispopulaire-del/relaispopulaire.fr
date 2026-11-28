@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27T18:56:47+00:00",
+  "updated": "2026-11-28T01:57:30+00:00",
   "shorts": [
     {
       "id": "unwVhGSpPLI",
@@ -154,6 +154,11 @@
   ],
   "long": [
     {
+      "id": "2fT9Y9GKaNM",
+      "title": "Martinique : en 1972, ils ont créé leur propre solution d'accès au crédit bancaire.",
+      "published": "2026-11-27T22:57:14+00:00"
+    },
+    {
       "id": "Xgk_1TlL7YI",
       "title": "Sans bateau, on mange quoi?",
       "published": "2026-11-22T00:19:34+00:00"
@@ -222,11 +227,6 @@
       "id": "CBaxtNfL6N8",
       "title": "De dealer à mentor — l’histoire vraie de Dimitri.",
       "published": "2025-11-26T20:42:34+00:00"
-    },
-    {
-      "id": "2OMVnoA0TD0",
-      "title": "Outre-mer : moins de 10ans ! Conférence de coordination Martinique, Guadeloupe, Guyane",
-      "published": "2025-11-24T11:12:53+00:00"
     }
   ]
 }
